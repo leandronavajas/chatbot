@@ -1,0 +1,50 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Intellij #
+*.iml
+.idea/
+
+# Eclipse #
+.project
+.settings/
+chatbot-api/.project
+chatbot-api/.settings/
+chatbot-domain/.project
+chatbot-domain/.settings/
+chatbot-domain/bin/
+chatbot-service/.project
+chatbot-service/.settings/
+chatbot-service/bin/
+
+# Compilation #
+target/
+chatbot-api/target/
+chatbot-domain/target/
+chatbot-service/target/
+chatbot-api/target/maven-status/
+chatbot-domain/target/maven-status/
+chatbot-service/target/maven-status/
+test-output/
+.directory
+artifact-id
