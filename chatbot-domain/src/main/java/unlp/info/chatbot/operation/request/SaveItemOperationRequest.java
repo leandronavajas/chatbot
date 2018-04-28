@@ -1,7 +1,7 @@
 package unlp.info.chatbot.operation.request;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+//import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+//import org.apache.commons.lang3.builder.ToStringStyle;
 
 public class SaveItemOperationRequest {
 
@@ -23,6 +23,7 @@ public class SaveItemOperationRequest {
 
   @Override
   public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
+    return "Te debo el toString";
+    //return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
   }
 }
