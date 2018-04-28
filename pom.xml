@@ -23,7 +23,7 @@
 
     <properties>
         <spring-all.version>4.3.9.RELEASE</spring-all.version>
-        <jetty.version>9.4.6.v20170531</jetty.version>
+        <jetty.version>9.4.7.v20170914</jetty.version>
         <cassandra.version>3.11.1</cassandra.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <logback.version>1.2.3</logback.version>
@@ -31,6 +31,8 @@
         <aspectj-maven-plugin.version>1.10</aspectj-maven-plugin.version>
         <jackson.version>2.8.9</jackson.version>
         <validation-api.version>1.0.0.GA</validation-api.version>
+        <java.version>1.8</java.version>
+        <maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -149,11 +151,14 @@
 
     </dependencyManagement>
 
+    <!--
     <repositories>
         <repository>
             <id>cassandra-all</id>
             <url>https://mvnrepository.com/artifact/org.apache.cassandra/cassandra-all</url>
         </repository>
+
     </repositories>
+    -->
 
 </project>
