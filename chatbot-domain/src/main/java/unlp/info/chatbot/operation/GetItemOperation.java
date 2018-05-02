@@ -14,7 +14,7 @@ public class GetItemOperation implements Operation<GetItemOperationRequest, Test
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GetItemOperation.class);
 
-  private RepositoryService repositoryService;
+  private RepositoryService<TestDTO> repositoryService;
 
   public TestDTO execute(GetItemOperationRequest request) {
 
@@ -27,7 +27,7 @@ public class GetItemOperation implements Operation<GetItemOperationRequest, Test
   }
 
   @Resource
-  public void setRepositoryService(RepositoryService repositoryService) {
+  public void setRepositoryService(RepositoryService<TestDTO> repositoryService) {
     this.repositoryService = repositoryService;
   }
 }

@@ -3,7 +3,7 @@ package unlp.info.chatbot.dto;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class TestDTO {
+public class TestDTO implements PersistentObject {
 
   private String id;
   private String description;
@@ -13,6 +13,7 @@ public class TestDTO {
     this.description = description;
   }
 
+  @Override
   public String getId() {
     return id;
   }

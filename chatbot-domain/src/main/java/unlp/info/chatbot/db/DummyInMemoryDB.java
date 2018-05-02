@@ -1,6 +1,7 @@
 package unlp.info.chatbot.db;
 
 import org.springframework.stereotype.Repository;
+import unlp.info.chatbot.dto.PersistentObject;
 import unlp.info.chatbot.dto.TestDTO;
 
 import java.util.ArrayList;
@@ -9,17 +10,17 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class DummyInMemoryDB {
+public class DummyInMemoryDB<P extends PersistentObject> {
 
-  private static Map<String, TestDTO> magicMap = new HashMap<>();
+  private Map<String, P> magicMap = new HashMap<>();
 
-  public String save(TestDTO coupon) {
-    magicMap.put(coupon.getId(), coupon);
+  public String save(P item) {
+    magicMap.put(item.getId(), item);
 
     return "OK";
   }
 
-  public TestDTO load(String id) {
+  public P load(String id) {
     return magicMap.get(id);
   }
 
@@ -29,7 +30,7 @@ public class DummyInMemoryDB {
     return "OK";
   }
 
-  public List<TestDTO> loadAll() {
+  public List<P> loadAll() {
     return new ArrayList<>(magicMap.values());
   }
 

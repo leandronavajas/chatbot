@@ -4,20 +4,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import unlp.info.chatbot.db.DummyInMemoryDB;
-import unlp.info.chatbot.dto.TestDTO;
+import unlp.info.chatbot.dto.PersistentObject;
 import unlp.info.chatbot.exception.ItemNotFoundException;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-public class RepositoryService {
+public class RepositoryService<P extends PersistentObject> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryService.class);
 
-  private DummyInMemoryDB db;
+  private DummyInMemoryDB<P> db;
 
-  public void save(TestDTO item) {
+  public void save(P item) {
     LOGGER.debug("Saving item -> {}", item);
 
     String status = this.db.save(item);
@@ -25,30 +25,30 @@ public class RepositoryService {
     LOGGER.info("Save item status: {}", status);
   }
 
-  public List<TestDTO> getAll() {
+  public List<P> getAll() {
     LOGGER.debug("Loading all items.");
-    List<TestDTO> coupons = this.db.loadAll();
-    LOGGER.debug("Number of items -> {}", coupons.size());
+    List<P> items = this.db.loadAll();
+    LOGGER.debug("Number of items -> {}", items.size());
 
-    return coupons;
+    return items;
   }
 
-  public TestDTO getById(String id) {
+  public P getById(String id) {
     LOGGER.debug("Loading item by ID: {}", id);
-    TestDTO coupon = this.db.load(id);
+    P item = this.db.load(id);
 
-    if (coupon == null) {
-      String causes = String.format("Coupon with id: %s Not found", id);
+    if (item == null) {
+      String causes = String.format("Item with id: %s Not found", id);
       LOGGER.error("[REPOSITORY SERVICE] {}", causes);
       throw new ItemNotFoundException(causes);
     }
 
-    return coupon;
+    return item;
   }
 
   public void remove(String id) {
 
-    TestDTO item = this.getById(id);
+    P item = this.getById(id);
 
     LOGGER.debug("Removing item with id: {}", id);
     String status = this.db.remove(item.getId());
@@ -57,7 +57,7 @@ public class RepositoryService {
   }
 
   @Resource
-  public void setDb(DummyInMemoryDB db) {
+  public void setDb(DummyInMemoryDB<P> db) {
     this.db = db;
   }
 

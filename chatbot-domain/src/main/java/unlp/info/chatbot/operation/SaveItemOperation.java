@@ -14,7 +14,7 @@ public class SaveItemOperation implements Operation<SaveItemOperationRequest, Te
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SaveItemOperation.class);
 
-  private RepositoryService repositoryService;
+  private RepositoryService<TestDTO> repositoryService;
 
   @Override
   public TestDTO execute(SaveItemOperationRequest request) {
@@ -29,7 +29,7 @@ public class SaveItemOperation implements Operation<SaveItemOperationRequest, Te
   }
 
   @Resource
-  public void setRepositoryService(RepositoryService repositoryService) {
+  public void setRepositoryService(RepositoryService<TestDTO> repositoryService) {
     this.repositoryService = repositoryService;
   }
 }
