@@ -3,15 +3,15 @@ package unlp.info.chatbot.facade;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import unlp.info.chatbot.controller.body.AddResponseBody;
+import unlp.info.chatbot.controller.body.AddMessageBody;
 import unlp.info.chatbot.controller.body.transformer.Transformer;
-import unlp.info.chatbot.dto.ResponseDTO;
+import unlp.info.chatbot.dto.MessageDTO;
 import unlp.info.chatbot.dto.StatusResponse;
 import unlp.info.chatbot.operation.Operation;
-import unlp.info.chatbot.operation.request.AddResponseRequest;
-import unlp.info.chatbot.operation.request.GetAllItemsOperationRequest;
-import unlp.info.chatbot.operation.request.GetResponseRequest;
-import unlp.info.chatbot.operation.request.RemoveResponseRequest;
+import unlp.info.chatbot.operation.request.AddMessageRequest;
+import unlp.info.chatbot.operation.request.GetAllMessageOperationRequest;
+import unlp.info.chatbot.operation.request.GetMessageRequest;
+import unlp.info.chatbot.operation.request.RemoveMessageRequest;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -20,43 +20,43 @@ import java.util.List;
 @Component
 public class ChatbotApiFacadeImpl implements ChatbotApiFacade {
 
-  private Operation<GetResponseRequest, ResponseDTO> getResponseOperation;
+  private Operation<GetMessageRequest, MessageDTO> getMessageOperation;
 
-  private Operation<AddResponseRequest, ResponseDTO> addResponseOperation;
-  private Transformer<AddResponseBody, AddResponseRequest> addResponseRequestTransformer;
+  private Operation<AddMessageRequest, MessageDTO> addMessageOperation;
+  private Transformer<AddMessageBody, AddMessageRequest> addMessageRequestTransformer;
 
-  private Operation<RemoveResponseRequest, StatusResponse> removeResponseOperation;
+  private Operation<RemoveMessageRequest, StatusResponse> removeMessageOperation;
 
-  private Operation<GetAllItemsOperationRequest, List<ResponseDTO>> getAllResponsesOperation;
+  private Operation<GetAllMessageOperationRequest, List<MessageDTO>> getAllMessagesOperation;
 
   @Override
-  public ResponseDTO getResponse(String entity, BigDecimal confidence) {
-    GetResponseRequest request = new GetResponseRequest(entity, confidence);
+  public MessageDTO getMessage(String entity, BigDecimal confidence) {
+    GetMessageRequest request = new GetMessageRequest(entity, confidence);
 
-    return this.getResponseOperation.execute(request);
+    return this.getMessageOperation.execute(request);
   }
 
   @Override
-  public ResponseDTO addResponse(AddResponseBody body) {
+  public MessageDTO addMessage(AddMessageBody body) {
 
-    AddResponseRequest addResponseRequest = this.addResponseRequestTransformer.transform(body);
+    AddMessageRequest addMessageRequest = this.addMessageRequestTransformer.transform(body);
 
-    return this.addResponseOperation.execute(addResponseRequest);
+    return this.addMessageOperation.execute(addMessageRequest);
   }
 
   @Override
-  public ResponseEntity<StatusResponse> removeResponse(String entity) {
+  public ResponseEntity<StatusResponse> removeMessage(String entity) {
 
-    RemoveResponseRequest removeResponseRequest = new RemoveResponseRequest(entity);
+    RemoveMessageRequest removeMessageRequest = new RemoveMessageRequest(entity);
 
-    StatusResponse statusResponse = this.removeResponseOperation.execute(removeResponseRequest);
+    StatusResponse statusResponse = this.removeMessageOperation.execute(removeMessageRequest);
     return ResponseEntity.status(HttpStatus.OK).body(statusResponse);
   }
 
   @Override
-  public List<ResponseDTO> getAll() {
+  public List<MessageDTO> getAll() {
 
-    return this.getAllResponsesOperation.execute(new GetAllItemsOperationRequest());
+    return this.getAllMessagesOperation.execute(new GetAllMessageOperationRequest());
   }
 
 
@@ -65,27 +65,27 @@ public class ChatbotApiFacadeImpl implements ChatbotApiFacade {
 
 
   @Resource
-  public void setGetResponseOperation(Operation<GetResponseRequest, ResponseDTO> getResponseOperation) {
-    this.getResponseOperation = getResponseOperation;
+  public void setGetMessageOperation(Operation<GetMessageRequest, MessageDTO> getMessageOperation) {
+    this.getMessageOperation = getMessageOperation;
   }
 
   @Resource
-  public void setAddResponseOperation(Operation<AddResponseRequest, ResponseDTO> addResponseOperation) {
-    this.addResponseOperation = addResponseOperation;
+  public void setAddMessageOperation(Operation<AddMessageRequest, MessageDTO> addMessageOperation) {
+    this.addMessageOperation = addMessageOperation;
   }
 
   @Resource
-  public void setAddResponseRequestTransformer(Transformer<AddResponseBody, AddResponseRequest> addResponseRequestTransformer) {
-    this.addResponseRequestTransformer = addResponseRequestTransformer;
+  public void setAddMessageRequestTransformer(Transformer<AddMessageBody, AddMessageRequest> addMessageRequestTransformer) {
+    this.addMessageRequestTransformer = addMessageRequestTransformer;
   }
 
   @Resource
-  public void setRemoveResponseOperation(Operation<RemoveResponseRequest, StatusResponse> removeResponseOperation) {
-    this.removeResponseOperation = removeResponseOperation;
+  public void setRemoveMessageOperation(Operation<RemoveMessageRequest, StatusResponse> removeMessageOperation) {
+    this.removeMessageOperation = removeMessageOperation;
   }
 
   @Resource
-  public void setGetAllResponsesOperation(Operation<GetAllItemsOperationRequest, List<ResponseDTO>> getAllResponsesOperation) {
-    this.getAllResponsesOperation = getAllResponsesOperation;
+  public void setGetAllMessagesOperation(Operation<GetAllMessageOperationRequest, List<MessageDTO>> getAllMessagesOperation) {
+    this.getAllMessagesOperation = getAllMessagesOperation;
   }
 }

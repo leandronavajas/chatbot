@@ -1,19 +1,17 @@
-package unlp.info.chatbot.controller.body;
+package unlp.info.chatbot.operation.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import unlp.info.chatbot.dto.QuickReplyDTO;
 
 import java.util.List;
 
-public class AddResponseBody {
+public class AddMessageRequest {
 
   private String entity;
 
   private String description;
 
-  @JsonProperty("quick_replies")
   private List<QuickReplyDTO> quickReplies;
 
   private List<String> links;
@@ -54,4 +52,5 @@ public class AddResponseBody {
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
   }
+
 }

@@ -1,10 +1,10 @@
 package unlp.info.chatbot.operation.request;
 
-public class RemoveResponseRequest {
+public class RemoveMessageRequest {
 
   private String entity;
 
-  public RemoveResponseRequest(String entity) {
+  public RemoveMessageRequest(String entity) {
     this.entity = entity;
   }
 

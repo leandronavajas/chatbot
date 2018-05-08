@@ -3,27 +3,27 @@ package unlp.info.chatbot.operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import unlp.info.chatbot.dto.ResponseDTO;
+import unlp.info.chatbot.dto.MessageDTO;
 import unlp.info.chatbot.dto.StatusResponse;
 import unlp.info.chatbot.exception.NullEntityException;
-import unlp.info.chatbot.operation.request.RemoveResponseRequest;
+import unlp.info.chatbot.operation.request.RemoveMessageRequest;
 import unlp.info.chatbot.service.RepositoryService;
 
 import javax.annotation.Resource;
 
 @Component
-public class RemoveResponseOperation implements Operation<RemoveResponseRequest, StatusResponse> {
+public class RemoveMessageOperation implements Operation<RemoveMessageRequest, StatusResponse> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(RemoveResponseOperation.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(RemoveMessageOperation.class);
 
-  private RepositoryService<ResponseDTO> repositoryService;
+  private RepositoryService<MessageDTO> repositoryService;
 
   @Override
-  public StatusResponse execute(RemoveResponseRequest request) {
+  public StatusResponse execute(RemoveMessageRequest request) {
     String entity = request.getEntity();
 
     if (null == entity) {
-      LOGGER.error("[REMOVE RESPONSE OPERATION] Entity cannot be null");
+      LOGGER.error("[REMOVE MESSAGE OPERATION] Entity cannot be null");
       throw new NullEntityException("Entity cannot be null");
     }
 
@@ -33,7 +33,7 @@ public class RemoveResponseOperation implements Operation<RemoveResponseRequest,
   }
 
   @Resource
-  public void setRepositoryService(RepositoryService<ResponseDTO> repositoryService) {
+  public void setRepositoryService(RepositoryService<MessageDTO> repositoryService) {
     this.repositoryService = repositoryService;
   }
 }

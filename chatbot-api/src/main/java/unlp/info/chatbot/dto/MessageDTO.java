@@ -1,23 +1,22 @@
-package unlp.info.chatbot.operation.request;
+package unlp.info.chatbot.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import unlp.info.chatbot.dto.QuickReplyDTO;
 
 import java.util.List;
 
-public class AddResponseRequest {
+public class MessageDTO implements PersistentObject {
 
   private String entity;
 
   private String description;
 
+  @JsonProperty("quick_replies")
   private List<QuickReplyDTO> quickReplies;
 
   private List<String> links;
 
-  public String getEntity() {
+  @Override
+  public String getId() {
     return entity;
   }
 
@@ -48,10 +47,4 @@ public class AddResponseRequest {
   public void setLinks(List<String> links) {
     this.links = links;
   }
-
-  @Override
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
-  }
-
 }

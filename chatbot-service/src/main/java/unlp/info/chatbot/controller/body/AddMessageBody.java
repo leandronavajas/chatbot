@@ -1,10 +1,13 @@
-package unlp.info.chatbot.dto;
+package unlp.info.chatbot.controller.body;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import unlp.info.chatbot.dto.QuickReplyDTO;
 
 import java.util.List;
 
-public class ResponseDTO implements PersistentObject {
+public class AddMessageBody {
 
   private String entity;
 
@@ -15,8 +18,7 @@ public class ResponseDTO implements PersistentObject {
 
   private List<String> links;
 
-  @Override
-  public String getId() {
+  public String getEntity() {
     return entity;
   }
 
@@ -46,5 +48,10 @@ public class ResponseDTO implements PersistentObject {
 
   public void setLinks(List<String> links) {
     this.links = links;
+  }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
   }
 }

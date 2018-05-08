@@ -7,7 +7,7 @@ import unlp.info.chatbot.controller.body.AddItemBody;
 import unlp.info.chatbot.dto.StatusResponse;
 import unlp.info.chatbot.dto.TestDTO;
 import unlp.info.chatbot.operation.Operation;
-import unlp.info.chatbot.operation.request.GetAllItemsOperationRequest;
+import unlp.info.chatbot.operation.request.GetAllMessageOperationRequest;
 import unlp.info.chatbot.operation.request.GetItemOperationRequest;
 import unlp.info.chatbot.operation.request.RemoveItemOperationRequest;
 import unlp.info.chatbot.operation.request.SaveItemOperationRequest;
@@ -24,7 +24,7 @@ public class ApiFacadeImpl implements ApiFacade {
 
   private Operation<RemoveItemOperationRequest, StatusResponse> removeItemOperation;
 
-  private Operation<GetAllItemsOperationRequest, List<TestDTO>> getAllItemsOperation;
+  private Operation<GetAllMessageOperationRequest, List<TestDTO>> getAllItemsOperation;
 
   public TestDTO get(String id) {
     GetItemOperationRequest request = new GetItemOperationRequest(id);
@@ -46,7 +46,7 @@ public class ApiFacadeImpl implements ApiFacade {
   }
 
   public List<TestDTO> get() {
-    GetAllItemsOperationRequest request = new GetAllItemsOperationRequest();
+    GetAllMessageOperationRequest request = new GetAllMessageOperationRequest();
     return this.getAllItemsOperation.execute(request);
   }
 
@@ -66,7 +66,7 @@ public class ApiFacadeImpl implements ApiFacade {
   }
 
   @Resource
-  public void setGetAllItemsOperation(Operation<GetAllItemsOperationRequest, List<TestDTO>> getAllItemsOperation) {
+  public void setGetAllItemsOperation(Operation<GetAllMessageOperationRequest, List<TestDTO>> getAllItemsOperation) {
     this.getAllItemsOperation = getAllItemsOperation;
   }
 }
