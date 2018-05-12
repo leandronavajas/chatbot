@@ -13,8 +13,9 @@ public class AddMessageRequestTransformer implements Transformer<AddMessageBody,
 
     addMessageRequest.setEntity(in.getEntity());
     addMessageRequest.setDescription(in.getDescription());
-    addMessageRequest.setQuickReplies(in.getQuickReplies());
+    addMessageRequest.setQuickReply(in.getQuickReply());
     addMessageRequest.setLinks(in.getLinks());
+    addMessageRequest.setParentId(in.getParentId());
 
     return addMessageRequest;
   }

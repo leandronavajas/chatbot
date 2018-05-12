@@ -14,7 +14,7 @@ public class MessageDTOTransformer implements Transformer<AddMessageRequest, Mes
 
     messageDTO.setEntity(in.getEntity());
     messageDTO.setDescription(in.getDescription());
-    messageDTO.setQuickReplies(in.getQuickReplies());
+    messageDTO.setQuickReply(in.getQuickReply());
     messageDTO.setLinks(in.getLinks());
 
     return messageDTO;

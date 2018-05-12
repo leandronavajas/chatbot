@@ -13,10 +13,15 @@ public class AddMessageBody {
 
   private String description;
 
-  @JsonProperty("quick_replies")
-  private List<QuickReplyDTO> quickReplies;
+  @JsonProperty("quick_reply")
+  private QuickReplyDTO quickReply;
 
   private List<String> links;
+
+  @JsonProperty("parent_id")
+  private String parentId;
+
+  // GETTERS and SETTERS
 
   public String getEntity() {
     return entity;
@@ -34,12 +39,12 @@ public class AddMessageBody {
     this.description = description;
   }
 
-  public List<QuickReplyDTO> getQuickReplies() {
-    return quickReplies;
+  public QuickReplyDTO getQuickReply() {
+    return quickReply;
   }
 
-  public void setQuickReplies(List<QuickReplyDTO> quickReplies) {
-    this.quickReplies = quickReplies;
+  public void setQuickReply(QuickReplyDTO quickReply) {
+    this.quickReply = quickReply;
   }
 
   public List<String> getLinks() {
@@ -53,5 +58,13 @@ public class AddMessageBody {
   @Override
   public String toString() {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
+  }
+
+  public String getParentId() {
+    return parentId;
+  }
+
+  public void setParentId(String parentId) {
+    this.parentId = parentId;
   }
 }

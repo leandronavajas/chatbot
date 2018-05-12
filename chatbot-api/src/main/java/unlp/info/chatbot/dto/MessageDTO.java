@@ -2,6 +2,7 @@ package unlp.info.chatbot.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MessageDTO implements PersistentObject {
@@ -10,8 +11,10 @@ public class MessageDTO implements PersistentObject {
 
   private String description;
 
-  @JsonProperty("quick_replies")
-  private List<QuickReplyDTO> quickReplies;
+  private List<MessageDTO> siblings = new ArrayList<>();
+
+  @JsonProperty("quick_reply")
+  private QuickReplyDTO quickReply;
 
   private List<String> links;
 
@@ -32,19 +35,27 @@ public class MessageDTO implements PersistentObject {
     this.description = description;
   }
 
-  public List<QuickReplyDTO> getQuickReplies() {
-    return quickReplies;
-  }
-
-  public void setQuickReplies(List<QuickReplyDTO> quickReplies) {
-    this.quickReplies = quickReplies;
-  }
-
   public List<String> getLinks() {
     return links;
   }
 
   public void setLinks(List<String> links) {
     this.links = links;
+  }
+
+  public List<MessageDTO> getSiblings() {
+    return siblings;
+  }
+
+  public void setSiblings(List<MessageDTO> siblings) {
+    this.siblings = siblings;
+  }
+
+  public QuickReplyDTO getQuickReply() {
+    return quickReply;
+  }
+
+  public void setQuickReply(QuickReplyDTO quickReply) {
+    this.quickReply = quickReply;
   }
 }

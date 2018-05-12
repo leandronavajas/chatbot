@@ -12,9 +12,13 @@ public class AddMessageRequest {
 
   private String description;
 
-  private List<QuickReplyDTO> quickReplies;
+  private QuickReplyDTO quickReply;
 
   private List<String> links;
+
+  private String parentId;
+
+  // GETTER and SETTERS
 
   public String getEntity() {
     return entity;
@@ -32,12 +36,12 @@ public class AddMessageRequest {
     this.description = description;
   }
 
-  public List<QuickReplyDTO> getQuickReplies() {
-    return quickReplies;
+  public QuickReplyDTO getQuickReply() {
+    return quickReply;
   }
 
-  public void setQuickReplies(List<QuickReplyDTO> quickReplies) {
-    this.quickReplies = quickReplies;
+  public void setQuickReply(QuickReplyDTO quickReply) {
+    this.quickReply = quickReply;
   }
 
   public List<String> getLinks() {
@@ -53,4 +57,11 @@ public class AddMessageRequest {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
   }
 
+  public String getParentId() {
+    return parentId;
+  }
+
+  public void setParentId(String parentId) {
+    this.parentId = parentId;
+  }
 }
