@@ -1,11 +1,16 @@
 package unlp.info.chatbot.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import unlp.info.chatbot.model.PersistentObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MessageDTO implements PersistentObject {
+public class MessageDTO implements PersistentObject, Serializable {
+
+  // TODO: LN ver si con la serializacion puedo guardar el objeto entero
+  private static final long serialVersionUID = 1L;
 
   private String entity;
 

@@ -2,7 +2,6 @@ package unlp.info.chatbot.operation.request;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import unlp.info.chatbot.dto.QuickReplyDTO;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public class AddMessageRequest {
 
   private String description;
 
-  private QuickReplyDTO quickReply;
+  //private QuickReplyDTO quickReply;
 
   private List<String> links;
 
@@ -36,13 +35,13 @@ public class AddMessageRequest {
     this.description = description;
   }
 
-  public QuickReplyDTO getQuickReply() {
-    return quickReply;
-  }
+  //public QuickReplyDTO getQuickReply() {
+    //return quickReply;
+  //}
 
-  public void setQuickReply(QuickReplyDTO quickReply) {
-    this.quickReply = quickReply;
-  }
+  //public void setQuickReply(QuickReplyDTO quickReply) {
+    //this.quickReply = quickReply;
+  //}
 
   public List<String> getLinks() {
     return links;

@@ -1,6 +1,6 @@
 package unlp.info.chatbot.transformer;
 
-public interface Transformer<I, O> {
+public interface PersistentTransformer<I, O> {
 
   O transform(I in);
 

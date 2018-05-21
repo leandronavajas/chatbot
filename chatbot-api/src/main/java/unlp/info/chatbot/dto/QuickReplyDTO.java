@@ -4,7 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class QuickReplyDTO {
+import java.io.Serializable;
+
+public class QuickReplyDTO implements Serializable {
+
+  private static final long serialVersionUID = 1L;
 
   @JsonProperty("context_type")
   private String contentType;

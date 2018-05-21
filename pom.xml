@@ -24,7 +24,7 @@
     <properties>
         <spring-all.version>4.3.9.RELEASE</spring-all.version>
         <jetty.version>9.4.7.v20170914</jetty.version>
-        <cassandra.version>3.11.1</cassandra.version>
+        <cassandra-driver.version>3.1.4</cassandra-driver.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <logback.version>1.2.3</logback.version>
         <aspectjrt.version>1.8.9</aspectjrt.version>
@@ -55,6 +55,16 @@
                 <artifactId>spring-aop</artifactId>
                 <version>${spring-all.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-autoconfigure</artifactId>
+                <version>1.5.1.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-cassandra</artifactId>
+                <version>2.0.1.RELEASE</version>
+            </dependency>
 
             <!-- jetty -->
             <dependency>
@@ -70,9 +80,9 @@
 
             <!-- cassandra -->
             <dependency>
-                <groupId>org.apache.cassandra</groupId>
-                <artifactId>cassandra-all</artifactId>
-                <version>${cassandra.version}</version>
+                <groupId>com.datastax.cassandra</groupId>
+                <artifactId>cassandra-driver-core</artifactId>
+                <version>${cassandra-driver.version}</version>
             </dependency>
 
             <!-- Apache commons -->
@@ -150,15 +160,5 @@
         </dependencies>
 
     </dependencyManagement>
-
-    <!--
-    <repositories>
-        <repository>
-            <id>cassandra-all</id>
-            <url>https://mvnrepository.com/artifact/org.apache.cassandra/cassandra-all</url>
-        </repository>
-
-    </repositories>
-    -->
 
 </project>

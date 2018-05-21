@@ -1,4 +1,4 @@
-package unlp.info.chatbot.dto;
+package unlp.info.chatbot.model;
 
 public interface PersistentObject {
 

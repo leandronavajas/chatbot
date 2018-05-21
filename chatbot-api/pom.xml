@@ -37,6 +37,14 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jdk8</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>unlp.info</groupId>
+            <artifactId>chatbot-domain</artifactId>
+        </dependency>
 
     </dependencies>
 

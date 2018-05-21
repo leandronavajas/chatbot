@@ -1,25 +1,25 @@
 package unlp.info.chatbot.operation;
 
 import org.springframework.stereotype.Component;
-import unlp.info.chatbot.dto.MessageDTO;
+import unlp.info.chatbot.model.MessagePersistent;
 import unlp.info.chatbot.operation.request.GetAllMessageOperationRequest;
-import unlp.info.chatbot.service.RepositoryService;
+import unlp.info.chatbot.service.RepositoryServiceImpl;
 
 import javax.annotation.Resource;
 import java.util.List;
 
 @Component
-public class GetAllMessagesOperation implements Operation<GetAllMessageOperationRequest, List<MessageDTO>> {
+public class GetAllMessagesOperation implements Operation<GetAllMessageOperationRequest, List<MessagePersistent>> {
 
-  private RepositoryService<MessageDTO> repositoryService;
+  private RepositoryServiceImpl<MessagePersistent> repositoryService;
 
   @Override
-  public List<MessageDTO> execute(GetAllMessageOperationRequest request) {
+  public List<MessagePersistent> execute(GetAllMessageOperationRequest request) {
     return this.repositoryService.getAll();
   }
 
   @Resource
-  public void setRepositoryService(RepositoryService<MessageDTO> repositoryService) {
+  public void setRepositoryService(RepositoryServiceImpl<MessagePersistent> repositoryService) {
     this.repositoryService = repositoryService;
   }
 }

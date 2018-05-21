@@ -8,7 +8,8 @@ import unlp.info.chatbot.annotation.RequestTracking;
 import unlp.info.chatbot.controller.body.AddMessageBody;
 import unlp.info.chatbot.dto.MessageDTO;
 import unlp.info.chatbot.dto.StatusResponse;
-import unlp.info.chatbot.facade.ChatbotApiFacade;
+import unlp.info.chatbot.facade.MessageFacade;
+import unlp.info.chatbot.model.RemoveStatus;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
@@ -21,14 +22,14 @@ public class ApiMessageController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ApiMessageController.class);
 
-  private ChatbotApiFacade chatbotApiFacade;
+  private MessageFacade messageFacade;
 
   @RequestTracking
   @GetMapping("/{entity}")
   public MessageDTO get(@PathVariable String entity, @NotNull BigDecimal confidence) {
     LOGGER.info("Request -> entity: {} - confidence: {}", entity, confidence);
 
-    return this.chatbotApiFacade.getMessage(entity, confidence);
+    return this.messageFacade.getMessage(entity, confidence);
   }
 
   @RequestTracking
@@ -36,15 +37,15 @@ public class ApiMessageController {
   public MessageDTO add(@RequestBody AddMessageBody body) {
     LOGGER.info("Add Message: {}", body);
 
-    return this.chatbotApiFacade.addMessage(body);
+    return this.messageFacade.addMessage(body);
   }
 
   @RequestTracking
   @DeleteMapping("/{entity}")
-  public ResponseEntity<StatusResponse> remove(@PathVariable String entity) {
+  public ResponseEntity<RemoveStatus> remove(@PathVariable String entity) {
     LOGGER.info("Remove Entity with id: {}", entity);
 
-    return this.chatbotApiFacade.removeMessage(entity);
+    return this.messageFacade.removeMessage(entity);
   }
 
   @RequestTracking
@@ -52,11 +53,11 @@ public class ApiMessageController {
   public List<MessageDTO> getAll() {
     LOGGER.info("Get all messages");
 
-    return this.chatbotApiFacade.getAll();
+    return this.messageFacade.getAll();
   }
 
   @Resource
-  public void setChatbotApiFacade(ChatbotApiFacade chatbotApiFacade) {
-    this.chatbotApiFacade = chatbotApiFacade;
+  public void setMessageFacade(MessageFacade messageFacade) {
+    this.messageFacade = messageFacade;
   }
 }

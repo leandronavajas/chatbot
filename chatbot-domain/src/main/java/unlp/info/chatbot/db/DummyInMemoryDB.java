@@ -1,8 +1,7 @@
 package unlp.info.chatbot.db;
 
 import org.springframework.stereotype.Repository;
-import unlp.info.chatbot.dto.PersistentObject;
-import unlp.info.chatbot.dto.TestDTO;
+import unlp.info.chatbot.model.PersistentObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;

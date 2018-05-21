@@ -57,6 +57,12 @@
             <artifactId>validation-api</artifactId>
         </dependency>
 
+        <!-- cassandra -->
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+        </dependency>
+
         <!-- modules -->
         <dependency>
             <groupId>unlp.info</groupId>

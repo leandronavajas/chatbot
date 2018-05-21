@@ -1,64 +1,19 @@
 package unlp.info.chatbot.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-import unlp.info.chatbot.db.DummyInMemoryDB;
-import unlp.info.chatbot.dto.PersistentObject;
-import unlp.info.chatbot.exception.ItemNotFoundException;
 
-import javax.annotation.Resource;
+import unlp.info.chatbot.model.PersistentObject;
+
 import java.util.List;
 
-@Service
-public class RepositoryService<P extends PersistentObject> {
+public interface RepositoryService<P extends PersistentObject> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(RepositoryService.class);
+  void save(P item);
 
-  private DummyInMemoryDB<P> db;
+  List<P> getAll();
 
-  public void save(P item) {
-    LOGGER.debug("Saving item -> {}", item);
+  P getById(String id);
 
-    String status = this.db.save(item);
+  void remove(String id);
 
-    LOGGER.info("Save item status: {}", status);
-  }
-
-  public List<P> getAll() {
-    LOGGER.debug("Loading all items.");
-    List<P> items = this.db.loadAll();
-    LOGGER.debug("Number of items -> {}", items.size());
-
-    return items;
-  }
-
-  public P getById(String id) {
-    LOGGER.debug("Loading item by ID: {}", id);
-    P item = this.db.load(id);
-
-    if (item == null) {
-      String causes = String.format("Item with id: %s Not found", id);
-      LOGGER.error("[REPOSITORY SERVICE] {}", causes);
-      throw new ItemNotFoundException(causes);
-    }
-
-    return item;
-  }
-
-  public void remove(String id) {
-
-    P item = this.getById(id);
-
-    LOGGER.debug("Removing item with id: {}", id);
-    String status = this.db.remove(item.getId());
-
-    LOGGER.info("Remove item status: {}", status);
-  }
-
-  @Resource
-  public void setDb(DummyInMemoryDB<P> db) {
-    this.db = db;
-  }
 
 }
