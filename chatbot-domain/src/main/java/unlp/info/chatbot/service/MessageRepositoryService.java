@@ -7,7 +7,6 @@ import com.datastax.driver.core.Statement;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.stereotype.Repository;
 import unlp.info.chatbot.db.CassandraSessionService;
 import unlp.info.chatbot.model.MessagePersistent;

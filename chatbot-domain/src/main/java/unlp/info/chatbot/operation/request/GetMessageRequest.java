@@ -1,23 +1,15 @@
 package unlp.info.chatbot.operation.request;
 
-import java.math.BigDecimal;
-
 public class GetMessageRequest {
 
-  private String entity;
+  private String phrase;
 
-  private BigDecimal confidence;
-
-  public GetMessageRequest(String entity, BigDecimal confidence) {
-    this.entity = entity;
-    this.confidence = confidence;
+  public GetMessageRequest(String phrase) {
+    this.phrase = phrase;
   }
 
-  public String getEntity() {
-    return entity;
+  public String getPhrase() {
+    return phrase;
   }
 
-  public BigDecimal getConfidence() {
-    return confidence;
-  }
 }

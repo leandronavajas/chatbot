@@ -7,7 +7,7 @@ import unlp.info.chatbot.dto.QuickReplyDTO;
 
 import java.util.List;
 
-public class AddMessageBody {
+public class AddEntityBody {
 
   private String entity;
 

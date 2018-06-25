@@ -1,14 +1,14 @@
 package unlp.info.chatbot.controller.body.transformer;
 
 import org.springframework.stereotype.Component;
-import unlp.info.chatbot.controller.body.AddMessageBody;
+import unlp.info.chatbot.controller.body.AddEntityBody;
 import unlp.info.chatbot.operation.request.AddMessageRequest;
 
 @Component
-public class AddMessageRequestTransformer implements RequestTransformer<AddMessageBody, AddMessageRequest> {
+public class AddMessageRequestTransformer implements RequestTransformer<AddEntityBody, AddMessageRequest> {
 
   @Override
-  public AddMessageRequest transform(AddMessageBody in) {
+  public AddMessageRequest transform(AddEntityBody in) {
     AddMessageRequest addMessageRequest = new AddMessageRequest();
 
     addMessageRequest.setEntity(in.getEntity());

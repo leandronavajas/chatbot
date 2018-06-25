@@ -3,6 +3,9 @@ package unlp.info.chatbot.operation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import unlp.info.chatbot.client.Client;
+import unlp.info.chatbot.client.request.AddEntityWitRequest;
+import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.exception.NullEntityException;
 import unlp.info.chatbot.model.MessagePersistent;
 import unlp.info.chatbot.operation.request.AddMessageRequest;
@@ -12,13 +15,13 @@ import unlp.info.chatbot.transformer.PersistentTransformer;
 import javax.annotation.Resource;
 
 @Component
-public class AddMessageOperation implements Operation<AddMessageRequest, MessagePersistent> {
+public class AddEntityOperation implements Operation<AddMessageRequest, MessagePersistent> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AddMessageOperation.class);
-
-  private RepositoryService<MessagePersistent> messageRepositoryService;
+  private static final Logger LOGGER = LoggerFactory.getLogger(AddEntityOperation.class);
 
   private PersistentTransformer<AddMessageRequest, MessagePersistent> messagePersistentTransformer;
+  private RepositoryService<MessagePersistent> messageRepositoryService;
+  private Client<AddEntityWitRequest,AddEntityWitResponse> addEntityWitClient;
 
   @Override
   public MessagePersistent execute(AddMessageRequest request) {
@@ -29,6 +32,13 @@ public class AddMessageOperation implements Operation<AddMessageRequest, Message
     }
 
     MessagePersistent messagePersistent = this.messagePersistentTransformer.transform(request);
+
+    AddEntityWitRequest addEntityWitRequest = new AddEntityWitRequest();
+    addEntityWitRequest.setEntity(request.getEntity());
+    addEntityWitRequest.setDescription(request.getDescription());
+    AddEntityWitResponse addEntityWitResponse = this.addEntityWitClient.call(addEntityWitRequest);
+
+    LOGGER.info("[ADD MESSAGE OPERATION] By the moment, only print wit response: {}", addEntityWitResponse);
 
     LOGGER.info("[ADD MESSAGE OPERATION] Add message to model");
 
@@ -59,5 +69,10 @@ public class AddMessageOperation implements Operation<AddMessageRequest, Message
   @Resource
   public void setMessagePersistentTransformer(PersistentTransformer<AddMessageRequest, MessagePersistent> messagePersistentTransformer) {
     this.messagePersistentTransformer = messagePersistentTransformer;
+  }
+
+  @Resource
+  public void setAddEntityWitClient(Client<AddEntityWitRequest, AddEntityWitResponse> addEntityWitClient) {
+    this.addEntityWitClient = addEntityWitClient;
   }
 }
