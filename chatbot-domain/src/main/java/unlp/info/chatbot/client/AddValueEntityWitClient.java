@@ -5,19 +5,20 @@ import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import unlp.info.chatbot.client.body.AddEntityWitBody;
+import unlp.info.chatbot.client.body.AddValueEntityWitBody;
 import unlp.info.chatbot.client.parser.Parser;
-import unlp.info.chatbot.client.request.AddEntityWitRequest;
+import unlp.info.chatbot.client.request.AddValueEntityWitRequest;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
+import unlp.info.chatbot.operation.request.AddValueEntityOperationRequest;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
 
 @Component
-public class AddEntityWitClient extends AbstractWitClient<AddEntityWitRequest, HttpPost, AddEntityWitResponse> {
+public class AddValueEntityWitClient extends AbstractWitClient<AddValueEntityOperationRequest, HttpPost, AddEntityWitResponse> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AddEntityWitClient.class);
-  private static final String WIT_POST_ENTITY_URL = "https://api.wit.ai/entities?v=" + WIT_VERSION;
+  private static final Logger LOGGER = LoggerFactory.getLogger(AddValueEntityWitClient.class);
+  private static final String WIT_POST_VALUE_ENTITY_URL = "https://api.wit.ai/entities/%s/values?v=" + WIT_VERSION;
 
   private Parser<String, AddEntityWitResponse> createEntityResponseParser;
 
@@ -27,17 +28,18 @@ public class AddEntityWitClient extends AbstractWitClient<AddEntityWitRequest, H
   }
 
   @Override
-  protected String getUrl(AddEntityWitRequest request) {
-    return WIT_POST_ENTITY_URL;
+  protected String getUrl(AddValueEntityOperationRequest request) {
+    return String.format(WIT_POST_VALUE_ENTITY_URL, request.getEntity());
   }
 
   @Override
-  protected void addExtraToHttpRequest(HttpPost httpRequest, AddEntityWitRequest request) {
+  protected void addExtraToHttpRequest(HttpPost httpRequest, AddValueEntityOperationRequest request) {
+    AddValueEntityWitBody body = new AddValueEntityWitBody();
+    body.setValue(request.getBody().getValue());
+    body.setMetadata(request.getBody().getMetadata());
+    body.setExpressions(request.getBody().getExpressions());
 
-    AddEntityWitBody body = new AddEntityWitBody();
-    body.setId(request.getEntity());
-    body.setDoc(request.getDescription());
-
+    // TODO: LN chequear este toString -> puede romper las expressions
     String bodyExample = body.toString();
 
     try {
@@ -45,7 +47,6 @@ public class AddEntityWitClient extends AbstractWitClient<AddEntityWitRequest, H
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
     }
-
   }
 
   @Override
@@ -57,6 +58,7 @@ public class AddEntityWitClient extends AbstractWitClient<AddEntityWitRequest, H
   protected Parser<String, AddEntityWitResponse> getParser() {
     return this.createEntityResponseParser;
   }
+
 
   @Resource
   public void setCreateEntityResponseParser(Parser<String, AddEntityWitResponse> createEntityResponseParser) {

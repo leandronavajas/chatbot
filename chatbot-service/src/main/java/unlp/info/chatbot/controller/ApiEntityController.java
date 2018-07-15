@@ -2,11 +2,10 @@ package unlp.info.chatbot.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import unlp.info.chatbot.annotation.RequestTracking;
+import unlp.info.chatbot.client.request.AddValueEntityWitRequest;
+import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.controller.body.AddEntityBody;
 import unlp.info.chatbot.dto.MessageDTO;
 import unlp.info.chatbot.facade.EntityFacade;
@@ -28,6 +27,14 @@ public class ApiEntityController {
 
     return this.entityFacade.addEntity(body);
   }
+
+
+  @RequestTracking
+  @PostMapping("/{entity}/value")
+  public AddEntityWitResponse addValue(@PathVariable String entity, @RequestBody AddValueEntityWitRequest body) {
+    return this.entityFacade.addValueForEntity(entity, body);
+  }
+
 
   @Resource
   public void setEntityFacade(EntityFacade entityFacade) {
