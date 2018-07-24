@@ -9,12 +9,9 @@ import java.util.List;
 
 public class AddEntityBody {
 
-  private String entity;
+  private String name;
 
   private String description;
-
-  @JsonProperty("quick_reply")
-  private QuickReplyDTO quickReply;
 
   private List<String> links;
 
@@ -23,12 +20,12 @@ public class AddEntityBody {
 
   // GETTERS and SETTERS
 
-  public String getEntity() {
-    return entity;
+  public String getName() {
+    return name;
   }
 
-  public void setEntity(String entity) {
-    this.entity = entity;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getDescription() {
@@ -37,14 +34,6 @@ public class AddEntityBody {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public QuickReplyDTO getQuickReply() {
-    return quickReply;
-  }
-
-  public void setQuickReply(QuickReplyDTO quickReply) {
-    this.quickReply = quickReply;
   }
 
   public List<String> getLinks() {

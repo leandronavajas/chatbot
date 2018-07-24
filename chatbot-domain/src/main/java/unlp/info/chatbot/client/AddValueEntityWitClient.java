@@ -5,9 +5,8 @@ import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import unlp.info.chatbot.client.body.AddValueEntityWitBody;
+import unlp.info.chatbot.client.body.AddItemWitBody;
 import unlp.info.chatbot.client.parser.Parser;
-import unlp.info.chatbot.client.request.AddValueEntityWitRequest;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.operation.request.AddValueEntityOperationRequest;
 
@@ -34,7 +33,7 @@ public class AddValueEntityWitClient extends AbstractWitClient<AddValueEntityOpe
 
   @Override
   protected void addExtraToHttpRequest(HttpPost httpRequest, AddValueEntityOperationRequest request) {
-    AddValueEntityWitBody body = new AddValueEntityWitBody();
+    AddItemWitBody body = new AddItemWitBody();
     body.setValue(request.getBody().getValue());
     body.setMetadata(request.getBody().getMetadata());
     body.setExpressions(request.getBody().getExpressions());

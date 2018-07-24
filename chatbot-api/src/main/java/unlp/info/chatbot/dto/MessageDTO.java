@@ -13,14 +13,15 @@ public class MessageDTO implements PersistentObject, Serializable {
   private static final long serialVersionUID = 1L;
 
   private String entity;
-
   private String description;
-
   private List<MessageDTO> siblings = new ArrayList<>();
-
+  private String kind;
+  @JsonProperty("parent_id")
+  private String parentId;
+  @JsonProperty("wit_id")
+  private String witId;
   @JsonProperty("quick_reply")
   private QuickReplyDTO quickReply;
-
   private List<String> links;
 
   @Override
@@ -62,5 +63,29 @@ public class MessageDTO implements PersistentObject, Serializable {
 
   public void setQuickReply(QuickReplyDTO quickReply) {
     this.quickReply = quickReply;
+  }
+
+  public String getKind() {
+    return kind;
+  }
+
+  public void setKind(String kind) {
+    this.kind = kind;
+  }
+
+  public String getParentId() {
+    return parentId;
+  }
+
+  public void setParentId(String parentId) {
+    this.parentId = parentId;
+  }
+
+  public String getWitId() {
+    return witId;
+  }
+
+  public void setWitId(String witId) {
+    this.witId = witId;
   }
 }

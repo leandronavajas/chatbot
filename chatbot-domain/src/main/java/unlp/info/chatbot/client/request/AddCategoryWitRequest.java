@@ -1,6 +1,6 @@
 package unlp.info.chatbot.client.request;
 
-public class AddEntityWitRequest {
+public class AddCategoryWitRequest {
 
   private String entity;
   private String description;

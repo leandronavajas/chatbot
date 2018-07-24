@@ -7,7 +7,11 @@ import unlp.info.chatbot.dto.MessageDTO;
 
 public interface EntityFacade {
 
-  MessageDTO addEntity(AddEntityBody body);
+  MessageDTO addCategory(AddEntityBody body);
+
+  MessageDTO addItem(String categoryId, AddEntityBody body);
+
+  MessageDTO addExpression(String categoryId, String itemId, AddEntityBody body);
 
   AddEntityWitResponse addValueForEntity(String entity, AddValueEntityWitRequest request);
 }

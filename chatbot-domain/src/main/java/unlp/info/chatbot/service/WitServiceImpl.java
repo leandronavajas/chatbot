@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 import unlp.info.chatbot.client.Client;
 import unlp.info.chatbot.client.request.GetEntityWitRequest;
 import unlp.info.chatbot.client.request.GetMessageWitRequest;
-import unlp.info.chatbot.client.request.AddEntityWitRequest;
+import unlp.info.chatbot.client.request.AddCategoryWitRequest;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.client.response.WitMessageResponse;
 
@@ -15,7 +15,7 @@ public class WitServiceImpl implements WitService {
 
   private Client<GetEntityWitRequest, AddEntityWitResponse> getEntityWitClient;
 
-  private Client<AddEntityWitRequest, AddEntityWitResponse> postEntityWitClient;
+  private Client<AddCategoryWitRequest, AddEntityWitResponse> postEntityWitClient;
 
   private Client<GetMessageWitRequest, WitMessageResponse> getMessageWitClient;
 
@@ -25,7 +25,7 @@ public class WitServiceImpl implements WitService {
   }
 
   @Override
-  public void addEntity(AddEntityWitRequest request) {
+  public void addEntity(AddCategoryWitRequest request) {
     this.postEntityWitClient.call(request);
   }
 
@@ -41,7 +41,7 @@ public class WitServiceImpl implements WitService {
   }
 
   @Resource
-  public void setPostEntityWitClient(Client<AddEntityWitRequest, AddEntityWitResponse> postEntityWitClient) {
+  public void setPostEntityWitClient(Client<AddCategoryWitRequest, AddEntityWitResponse> postEntityWitClient) {
     this.postEntityWitClient = postEntityWitClient;
   }
 

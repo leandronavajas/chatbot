@@ -5,20 +5,21 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.List;
 
-public class AddMessageRequest {
+public class AddCategoryRequest implements AddEntityRequest {
 
   private String entity;
 
   private String description;
 
-  //private QuickReplyDTO quickReply;
-
   private List<String> links;
+
+  private String witId;
 
   private String parentId;
 
   // GETTER and SETTERS
 
+  @Override
   public String getEntity() {
     return entity;
   }
@@ -34,14 +35,6 @@ public class AddMessageRequest {
   public void setDescription(String description) {
     this.description = description;
   }
-
-  //public QuickReplyDTO getQuickReply() {
-    //return quickReply;
-  //}
-
-  //public void setQuickReply(QuickReplyDTO quickReply) {
-    //this.quickReply = quickReply;
-  //}
 
   public List<String> getLinks() {
     return links;
@@ -62,5 +55,13 @@ public class AddMessageRequest {
 
   public void setParentId(String parentId) {
     this.parentId = parentId;
+  }
+
+  public String getWitId() {
+    return witId;
+  }
+
+  public void setWitId(String witId) {
+    this.witId = witId;
   }
 }

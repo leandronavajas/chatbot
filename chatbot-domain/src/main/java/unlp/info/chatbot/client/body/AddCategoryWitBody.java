@@ -1,13 +1,13 @@
 package unlp.info.chatbot.client.body;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class AddEntityWitBody {
+import java.util.List;
+
+public class AddCategoryWitBody {
 
   private String id;
-
   private String doc;
 
   public String getId() {

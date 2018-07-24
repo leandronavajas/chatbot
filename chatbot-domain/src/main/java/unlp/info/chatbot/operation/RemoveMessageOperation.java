@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import unlp.info.chatbot.exception.NullEntityException;
-import unlp.info.chatbot.model.MessagePersistent;
+import unlp.info.chatbot.model.EntityPersistent;
 import unlp.info.chatbot.model.RemoveStatus;
 import unlp.info.chatbot.operation.request.RemoveMessageRequest;
 import unlp.info.chatbot.service.RepositoryServiceImpl;
@@ -16,7 +16,7 @@ public class RemoveMessageOperation implements Operation<RemoveMessageRequest, R
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RemoveMessageOperation.class);
 
-  private RepositoryServiceImpl<MessagePersistent> repositoryService;
+  private RepositoryServiceImpl<EntityPersistent> repositoryService;
 
   @Override
   public RemoveStatus execute(RemoveMessageRequest request) {
@@ -33,7 +33,7 @@ public class RemoveMessageOperation implements Operation<RemoveMessageRequest, R
   }
 
   @Resource
-  public void setRepositoryService(RepositoryServiceImpl<MessagePersistent> repositoryService) {
+  public void setRepositoryService(RepositoryServiceImpl<EntityPersistent> repositoryService) {
     this.repositoryService = repositoryService;
   }
 }

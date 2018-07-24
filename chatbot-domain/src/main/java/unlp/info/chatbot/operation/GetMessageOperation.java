@@ -10,7 +10,7 @@ import unlp.info.chatbot.client.response.WitMessageResponse;
 import unlp.info.chatbot.exception.ItemNotFoundException;
 import unlp.info.chatbot.exception.LowConfidenceException;
 import unlp.info.chatbot.exception.NullConfidenceException;
-import unlp.info.chatbot.model.MessagePersistent;
+import unlp.info.chatbot.model.EntityPersistent;
 import unlp.info.chatbot.operation.request.GetMessageRequest;
 import unlp.info.chatbot.service.RepositoryService;
 import unlp.info.chatbot.service.WitService;
@@ -22,17 +22,17 @@ import java.util.Map;
 import java.util.Set;
 
 @Component
-public class GetMessageOperation implements Operation<GetMessageRequest, MessagePersistent> {
+public class GetMessageOperation implements Operation<GetMessageRequest, EntityPersistent> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GetMessageOperation.class);
   private static BigDecimal CONFIDENCE_THRESHOLD = BigDecimal.valueOf(0.8);
 
-  private RepositoryService<MessagePersistent> messageRepositoryService;
+  private RepositoryService<EntityPersistent> messageRepositoryService;
 
   private WitService witService;
 
   @Override
-  public MessagePersistent execute(GetMessageRequest request) {
+  public EntityPersistent execute(GetMessageRequest request) {
 
 
     GetMessageWitRequest getMessageWitRequest = new GetMessageWitRequest();
@@ -66,7 +66,7 @@ public class GetMessageOperation implements Operation<GetMessageRequest, Message
   }
 
   @Resource
-  public void setMessageRepositoryService(RepositoryService<MessagePersistent> messageRepositoryService) {
+  public void setMessageRepositoryService(RepositoryService<EntityPersistent> messageRepositoryService) {
     this.messageRepositoryService = messageRepositoryService;
   }
 

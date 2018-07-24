@@ -3,15 +3,12 @@ package unlp.info.chatbot.facade.impl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import unlp.info.chatbot.controller.body.AddEntityBody;
-import unlp.info.chatbot.controller.body.transformer.RequestTransformer;
 import unlp.info.chatbot.dto.MessageDTO;
 import unlp.info.chatbot.dto.transformer.DTOTransformer;
 import unlp.info.chatbot.facade.MessageFacade;
-import unlp.info.chatbot.model.MessagePersistent;
+import unlp.info.chatbot.model.EntityPersistent;
 import unlp.info.chatbot.model.RemoveStatus;
 import unlp.info.chatbot.operation.Operation;
-import unlp.info.chatbot.operation.request.AddMessageRequest;
 import unlp.info.chatbot.operation.request.GetAllMessageOperationRequest;
 import unlp.info.chatbot.operation.request.GetMessageRequest;
 import unlp.info.chatbot.operation.request.RemoveMessageRequest;
@@ -22,21 +19,21 @@ import java.util.List;
 @Component
 public class MessageFacadeImpl implements MessageFacade {
 
-  private Operation<GetMessageRequest, MessagePersistent> getMessageOperation;
+  private Operation<GetMessageRequest, EntityPersistent> getMessageOperation;
   private Operation<RemoveMessageRequest, RemoveStatus> removeMessageOperation;
-  private Operation<GetAllMessageOperationRequest, List<MessagePersistent>> getAllMessagesOperation;
+  private Operation<GetAllMessageOperationRequest, List<EntityPersistent>> getAllMessagesOperation;
 
-  private DTOTransformer<MessagePersistent, MessageDTO> messageDTOTransformer;
-  private DTOTransformer<List<MessagePersistent>, List<MessageDTO>> messageDTOListTransformer;
+  private DTOTransformer<EntityPersistent, MessageDTO> messageDTOTransformer;
+  private DTOTransformer<List<EntityPersistent>, List<MessageDTO>> messageDTOListTransformer;
 
 
   @Override
   public MessageDTO getMessage(String phrase) {
     GetMessageRequest request = new GetMessageRequest(phrase);
 
-    MessagePersistent messagePersistent = this.getMessageOperation.execute(request);
+    EntityPersistent entityPersistent = this.getMessageOperation.execute(request);
 
-    return this.messageDTOTransformer.transform(messagePersistent);
+    return this.messageDTOTransformer.transform(entityPersistent);
   }
 
   @Override
@@ -51,7 +48,7 @@ public class MessageFacadeImpl implements MessageFacade {
   @Override
   public List<MessageDTO> getAll() {
 
-    List<MessagePersistent> messagesPersistent = this.getAllMessagesOperation.execute(new GetAllMessageOperationRequest());
+    List<EntityPersistent> messagesPersistent = this.getAllMessagesOperation.execute(new GetAllMessageOperationRequest());
 
     return this.messageDTOListTransformer.transform(messagesPersistent);
   }
@@ -60,7 +57,7 @@ public class MessageFacadeImpl implements MessageFacade {
   // --- SETTERS ---
 
   @Resource
-  public void setGetMessageOperation(Operation<GetMessageRequest, MessagePersistent> getMessageOperation) {
+  public void setGetMessageOperation(Operation<GetMessageRequest, EntityPersistent> getMessageOperation) {
     this.getMessageOperation = getMessageOperation;
   }
 
@@ -70,17 +67,17 @@ public class MessageFacadeImpl implements MessageFacade {
   }
 
   @Resource
-  public void setGetAllMessagesOperation(Operation<GetAllMessageOperationRequest, List<MessagePersistent>> getAllMessagesOperation) {
+  public void setGetAllMessagesOperation(Operation<GetAllMessageOperationRequest, List<EntityPersistent>> getAllMessagesOperation) {
     this.getAllMessagesOperation = getAllMessagesOperation;
   }
 
   @Resource
-  public void setMessageDTOTransformer(DTOTransformer<MessagePersistent, MessageDTO> messageDTOTransformer) {
+  public void setMessageDTOTransformer(DTOTransformer<EntityPersistent, MessageDTO> messageDTOTransformer) {
     this.messageDTOTransformer = messageDTOTransformer;
   }
 
   @Resource
-  public void setMessageDTOListTransformer(DTOTransformer<List<MessagePersistent>, List<MessageDTO>> messageDTOListTransformer) {
+  public void setMessageDTOListTransformer(DTOTransformer<List<EntityPersistent>, List<MessageDTO>> messageDTOListTransformer) {
     this.messageDTOListTransformer = messageDTOListTransformer;
   }
 }

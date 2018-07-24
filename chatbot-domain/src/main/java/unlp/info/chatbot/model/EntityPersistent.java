@@ -7,21 +7,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table("message_v1")
-public class MessagePersistent implements PersistentObject, Serializable {
+@Table("message_v3")
+public class EntityPersistent implements PersistentObject, Serializable {
 
   private static final long serialVersionUID = 1L;
 
   @PrimaryKey
   private String id;
-
   private String description;
-
-  private List<String> siblings = new ArrayList<>();
-
   private List<String> quickReply;
-
   private List<String> links;
+  private String kind;
+  private String parentId;
+  private String witId;
 
   public String getId() {
     return id;
@@ -39,14 +37,6 @@ public class MessagePersistent implements PersistentObject, Serializable {
     this.description = description;
   }
 
-  public List<String> getSiblings() {
-    return siblings;
-  }
-
-  public void setSiblings(List<String> siblings) {
-    this.siblings = siblings;
-  }
-
   public List<String> getQuickReply() {
     return quickReply;
   }
@@ -61,5 +51,29 @@ public class MessagePersistent implements PersistentObject, Serializable {
 
   public void setLinks(List<String> links) {
     this.links = links;
+  }
+
+  public String getKind() {
+    return kind;
+  }
+
+  public void setKind(String kind) {
+    this.kind = kind;
+  }
+
+  public String getParentId() {
+    return parentId;
+  }
+
+  public void setParentId(String parentId) {
+    this.parentId = parentId;
+  }
+
+  public String getWitId() {
+    return witId;
+  }
+
+  public void setWitId(String witId) {
+    this.witId = witId;
   }
 }

@@ -13,22 +13,51 @@ import unlp.info.chatbot.facade.EntityFacade;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("entity")
+@RequestMapping()
 public class ApiEntityController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ApiEntityController.class);
 
   private EntityFacade entityFacade;
 
+
+  @RequestTracking
+  @PostMapping("/category")
+  public MessageDTO addCategory(@RequestBody AddEntityBody body) {
+    LOGGER.info("Add Category: {}", body);
+
+    return this.entityFacade.addCategory(body);
+  }
+
+  @RequestTracking
+  @PostMapping("/category/{categoryId}/item")
+  public MessageDTO addItem(@PathVariable String categoryId, @RequestBody AddEntityBody body) {
+    LOGGER.info("Add Item for category: {} -> {}", categoryId, body);
+
+    return this.entityFacade.addItem(categoryId, body);
+  }
+
+  @RequestTracking
+  @PostMapping("/category/{categoryId}/item/{itemId}/expression")
+  public MessageDTO addExpression(@PathVariable String categoryId, @PathVariable String itemId, @RequestBody AddEntityBody body) {
+    LOGGER.info("Add Item for category: {} -> {}", categoryId, body);
+
+    return this.entityFacade.addExpression(categoryId, itemId, body);
+  }
+
+
+  // DEPRECATED
+
+  @Deprecated
   @RequestTracking
   @PostMapping
   public MessageDTO add(@RequestBody AddEntityBody body) {
     LOGGER.info("Add Message: {}", body);
 
-    return this.entityFacade.addEntity(body);
+    return this.entityFacade.addCategory(body);
   }
 
-
+  @Deprecated
   @RequestTracking
   @PostMapping("/{entity}/value")
   public AddEntityWitResponse addValue(@PathVariable String entity, @RequestBody AddValueEntityWitRequest body) {

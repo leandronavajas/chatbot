@@ -1,8 +1,11 @@
 package unlp.info.chatbot.client.body;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.util.List;
 
-public class AddValueEntityWitBody {
+public class AddItemWitBody {
 
   private String value;
   private List<String> expressions;
@@ -30,5 +33,10 @@ public class AddValueEntityWitBody {
 
   public void setMetadata(String metadata) {
     this.metadata = metadata;
+  }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
   }
 }
