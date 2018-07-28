@@ -1,6 +1,8 @@
 package unlp.info.chatbot.client.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.util.List;
 import java.util.Map;
@@ -37,5 +39,10 @@ public class WitMessageResponse implements WitResponse {
 
   public void setEntities(Map<String, List<WitMessageMetricResponse>> entities) {
     this.entities = entities;
+  }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
   }
 }

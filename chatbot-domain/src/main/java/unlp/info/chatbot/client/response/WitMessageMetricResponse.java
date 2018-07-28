@@ -1,5 +1,8 @@
 package unlp.info.chatbot.client.response;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import java.math.BigDecimal;
 
 public class WitMessageMetricResponse implements WitResponse {
@@ -32,5 +35,10 @@ public class WitMessageMetricResponse implements WitResponse {
 
   public void setConfidence(BigDecimal confidence) {
     this.confidence = confidence;
+  }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
   }
 }

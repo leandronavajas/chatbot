@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import unlp.info.chatbot.db.CassandraSessionService;
+import unlp.info.chatbot.exception.ItemNotFoundException;
 import unlp.info.chatbot.model.EntityPersistent;
 
 import javax.annotation.Resource;
@@ -54,6 +55,10 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
     ResultSet resultSet = session.execute(statement);
 
     Row row = resultSet.one();
+
+    if (row == null) {
+      throw new ItemNotFoundException("[MANAGE REPOSITORY SERVICE] Id: '" + id + "' not found in DB");
+    }
 
     String itemId = row.getString("id");
     String itemDescription = row.getString("description");
