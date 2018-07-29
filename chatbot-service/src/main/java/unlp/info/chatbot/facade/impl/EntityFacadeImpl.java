@@ -1,23 +1,19 @@
 package unlp.info.chatbot.facade.impl;
 
 import org.springframework.stereotype.Component;
-import unlp.info.chatbot.client.request.AddValueEntityWitRequest;
-import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.controller.body.AddEntityBody;
 import unlp.info.chatbot.controller.body.AddExpressionPathAndBody;
 import unlp.info.chatbot.controller.body.AddItemPathAndBody;
+import unlp.info.chatbot.operation.request.*;
 import unlp.info.chatbot.controller.body.transformer.RequestTransformer;
 import unlp.info.chatbot.dto.MessageDTO;
 import unlp.info.chatbot.dto.transformer.DTOTransformer;
 import unlp.info.chatbot.facade.EntityFacade;
 import unlp.info.chatbot.model.EntityPersistent;
 import unlp.info.chatbot.operation.Operation;
-import unlp.info.chatbot.operation.request.AddCategoryRequest;
-import unlp.info.chatbot.operation.request.AddExpressionRequest;
-import unlp.info.chatbot.operation.request.AddItemRequest;
-import unlp.info.chatbot.operation.request.AddValueEntityOperationRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Component
 public class EntityFacadeImpl implements EntityFacade {
@@ -30,10 +26,12 @@ public class EntityFacadeImpl implements EntityFacade {
   private Operation<AddItemRequest, EntityPersistent> addItemOperation;
   private Operation<AddExpressionRequest, EntityPersistent> addExpressionOperation;
 
-  private Operation<AddCategoryRequest, EntityPersistent> addEntityOperation;
-  private DTOTransformer<EntityPersistent, MessageDTO> messageDTOTransformer;
+  private Operation<GetAllEntitiesRequest, List<EntityPersistent>> getAllEntitiesOperation;
+  private Operation<GetItemsForCategoryRequest, List<EntityPersistent>> getItemsForCategoryOperation;
+  private Operation<GetExpressionsForItemRequest, List<EntityPersistent>> getExpressionsForItemOperation;
 
-  private Operation<AddValueEntityOperationRequest, AddEntityWitResponse> addValueEntityOperation;
+  private DTOTransformer<EntityPersistent, MessageDTO> messageDTOTransformer;
+  private DTOTransformer<List<EntityPersistent>, List<MessageDTO>> messageDTOListTransformer;
 
   @Override
   public MessageDTO addCategory(AddEntityBody body) {
@@ -70,13 +68,31 @@ public class EntityFacadeImpl implements EntityFacade {
   }
 
   @Override
-  public AddEntityWitResponse addValueForEntity(String entity, AddValueEntityWitRequest body) {
+  public List<MessageDTO> getAll(String filter) {
 
-    AddValueEntityOperationRequest request = new AddValueEntityOperationRequest();
-    request.setEntity(entity);
-    request.setBody(body);
+    GetAllEntitiesRequest request = new GetAllEntitiesRequest(filter);
 
-    return this.addValueEntityOperation.execute(request);
+    List<EntityPersistent> entities = this.getAllEntitiesOperation.execute(request);
+
+    return this.messageDTOListTransformer.transform(entities);
+  }
+
+  @Override
+  public List<MessageDTO> getItemsForCategory(String categoryId) {
+    GetItemsForCategoryRequest request = new GetItemsForCategoryRequest(categoryId);
+
+    List<EntityPersistent> entities = this.getItemsForCategoryOperation.execute(request);
+
+    return this.messageDTOListTransformer.transform(entities);
+  }
+
+  @Override
+  public List<MessageDTO> getExpressionsForItem(String categoryId, String itemId) {
+    GetExpressionsForItemRequest request = new GetExpressionsForItemRequest(categoryId, itemId);
+
+    List<EntityPersistent> entities = this.getExpressionsForItemOperation.execute(request);
+
+    return this.messageDTOListTransformer.transform(entities);
   }
 
 
@@ -96,18 +112,8 @@ public class EntityFacadeImpl implements EntityFacade {
   }
 
   @Resource
-  public void setAddEntityOperation(Operation<AddCategoryRequest, EntityPersistent> addEntityOperation) {
-    this.addEntityOperation = addEntityOperation;
-  }
-
-  @Resource
   public void setMessageDTOTransformer(DTOTransformer<EntityPersistent, MessageDTO> messageDTOTransformer) {
     this.messageDTOTransformer = messageDTOTransformer;
-  }
-
-  @Resource
-  public void setAddValueEntityOperation(Operation<AddValueEntityOperationRequest, AddEntityWitResponse> addValueEntityOperation) {
-    this.addValueEntityOperation = addValueEntityOperation;
   }
 
   @Resource
@@ -123,5 +129,25 @@ public class EntityFacadeImpl implements EntityFacade {
   @Resource
   public void setAddExpressionOperation(Operation<AddExpressionRequest, EntityPersistent> addExpressionOperation) {
     this.addExpressionOperation = addExpressionOperation;
+  }
+
+  @Resource
+  public void setGetAllEntitiesOperation(Operation<GetAllEntitiesRequest, List<EntityPersistent>> getAllEntitiesOperation) {
+    this.getAllEntitiesOperation = getAllEntitiesOperation;
+  }
+
+  @Resource
+  public void setMessageDTOListTransformer(DTOTransformer<List<EntityPersistent>, List<MessageDTO>> messageDTOListTransformer) {
+    this.messageDTOListTransformer = messageDTOListTransformer;
+  }
+
+  @Resource
+  public void setGetItemsForCategoryOperation(Operation<GetItemsForCategoryRequest, List<EntityPersistent>> getItemsForCategoryOperation) {
+    this.getItemsForCategoryOperation = getItemsForCategoryOperation;
+  }
+
+  @Resource
+  public void setGetExpressionsForItemOperation(Operation<GetExpressionsForItemRequest, List<EntityPersistent>> getExpressionsForItemOperation) {
+    this.getExpressionsForItemOperation = getExpressionsForItemOperation;
   }
 }

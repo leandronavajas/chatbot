@@ -5,9 +5,11 @@ import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 import unlp.info.chatbot.db.CassandraSessionService;
 import unlp.info.chatbot.exception.ItemNotFoundException;
 import unlp.info.chatbot.model.EntityPersistent;
@@ -44,8 +46,62 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
   }
 
   @Override
-  public List<EntityPersistent> getAll() {
-    return null;
+  public List<EntityPersistent> getAll(String filter) {
+    Session session = this.cassandraSessionService.cassandraSession();
+
+    Statement statement =QueryBuilder.select().all().from(KEYSPACE, TABLE).allowFiltering().where(QueryBuilder.eq("kind", filter));
+
+    ResultSet resultSet = session.execute(statement);
+
+    List<Row> rows = resultSet.all();
+
+    if (CollectionUtils.isEmpty(rows)) {
+      throw new ItemNotFoundException("[MANAGE REPOSITORY SERVICE] Get all response without items. Filter: " + filter + "");
+    }
+
+    return this.mappingAll(rows);
+
+  }
+
+  public List<EntityPersistent> getItems(String categoryId) {
+    Session session = this.cassandraSessionService.cassandraSession();
+
+    Statement statement = QueryBuilder
+        .select().all()
+        .from(KEYSPACE, TABLE).allowFiltering()
+        .where(QueryBuilder.eq("parentid", categoryId))
+        .and(QueryBuilder.eq("kind", "ITEM"));
+
+    ResultSet resultSet = session.execute(statement);
+
+    List<Row> rows = resultSet.all();
+
+    if (CollectionUtils.isEmpty(rows)) {
+      throw new ItemNotFoundException("[MANAGE REPOSITORY SERVICE] Get items for category. Category_id: " + categoryId + "");
+    }
+
+    return this.mappingAll(rows);
+  }
+
+  public List<EntityPersistent> getExpressions(String categoryId, String itemId) {
+    Session session = this.cassandraSessionService.cassandraSession();
+
+    Statement statement = QueryBuilder
+        .select().all()
+        .from(KEYSPACE, TABLE).allowFiltering()
+        .where(QueryBuilder.eq("parentid", itemId))
+        //.and(QueryBuilder.eq("parentid", categoryId))
+        .and(QueryBuilder.eq("kind", "EXPRESSION"));
+
+    ResultSet resultSet = session.execute(statement);
+
+    List<Row> rows = resultSet.all();
+
+    if (CollectionUtils.isEmpty(rows)) {
+      throw new ItemNotFoundException("[MANAGE REPOSITORY SERVICE] Get expressions for item. Category_id: " + categoryId + " - Item_id: " + itemId);
+    }
+
+    return this.mappingAll(rows);
   }
 
   @Override
@@ -60,6 +116,28 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
       throw new ItemNotFoundException("[MANAGE REPOSITORY SERVICE] Id: '" + id + "' not found in DB");
     }
 
+    return this.mapping(row);
+  }
+
+  @Override
+  public void remove(String id) {
+
+  }
+
+  // PRIVATE METHODS
+
+  private List<EntityPersistent> mappingAll(List<Row> rows) {
+    List<EntityPersistent> response = Lists.newArrayList();
+
+    for (Row row : rows) {
+      EntityPersistent entityPersistent = this.mapping(row);
+      response.add(entityPersistent);
+    }
+    return response;
+
+  }
+
+  private EntityPersistent mapping(Row row) {
     String itemId = row.getString("id");
     String itemDescription = row.getString("description");
     List<String> links = row.getList("links", String.class);
@@ -78,11 +156,6 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
     entityPersistent.setWitId(witId);
 
     return entityPersistent;
-  }
-
-  @Override
-  public void remove(String id) {
-
   }
 
   @Resource

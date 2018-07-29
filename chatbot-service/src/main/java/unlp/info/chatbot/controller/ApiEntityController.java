@@ -11,6 +11,7 @@ import unlp.info.chatbot.dto.MessageDTO;
 import unlp.info.chatbot.facade.EntityFacade;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @RequestMapping()
@@ -46,22 +47,28 @@ public class ApiEntityController {
   }
 
 
-  // DEPRECATED
-
-  @Deprecated
   @RequestTracking
-  @PostMapping
-  public MessageDTO add(@RequestBody AddEntityBody body) {
-    LOGGER.info("Add Message: {}", body);
+  @GetMapping()
+  public List<MessageDTO> getAll(@RequestParam String filter) {
+    LOGGER.info("Get all entities. Filter: {}", filter);
 
-    return this.entityFacade.addCategory(body);
+    return this.entityFacade.getAll(filter);
   }
 
-  @Deprecated
   @RequestTracking
-  @PostMapping("/{entity}/value")
-  public AddEntityWitResponse addValue(@PathVariable String entity, @RequestBody AddValueEntityWitRequest body) {
-    return this.entityFacade.addValueForEntity(entity, body);
+  @GetMapping("/category/{categoryId}")
+  public List<MessageDTO> getItemsForCategory(@PathVariable String categoryId) {
+    LOGGER.info("Get items for category. Category_id: {}", categoryId);
+
+    return this.entityFacade.getItemsForCategory(categoryId);
+  }
+
+  @RequestTracking
+  @GetMapping("/category/{categoryId}/item/{itemId}")
+  public List<MessageDTO> getExpressionsForItem(@PathVariable String categoryId, @PathVariable String itemId) {
+    LOGGER.info("Get expressions for item. Category_id: {} - Item_id: {}", categoryId, itemId);
+
+    return this.entityFacade.getExpressionsForItem(categoryId, itemId);
   }
 
 

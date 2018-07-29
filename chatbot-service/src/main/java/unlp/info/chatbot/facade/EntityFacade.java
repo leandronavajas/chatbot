@@ -1,9 +1,9 @@
 package unlp.info.chatbot.facade;
 
-import unlp.info.chatbot.client.request.AddValueEntityWitRequest;
-import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.controller.body.AddEntityBody;
 import unlp.info.chatbot.dto.MessageDTO;
+
+import java.util.List;
 
 public interface EntityFacade {
 
@@ -13,5 +13,9 @@ public interface EntityFacade {
 
   MessageDTO addExpression(String categoryId, String itemId, AddEntityBody body);
 
-  AddEntityWitResponse addValueForEntity(String entity, AddValueEntityWitRequest request);
+  List<MessageDTO> getAll(String filter);
+
+  List<MessageDTO> getItemsForCategory(String categoryId);
+
+  List<MessageDTO> getExpressionsForItem(String categoryId, String itemId);
 }

@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import unlp.info.chatbot.db.DummyInMemoryDB;
 import unlp.info.chatbot.exception.ItemNotFoundException;
+import unlp.info.chatbot.model.EntityPersistent;
 import unlp.info.chatbot.model.PersistentObject;
 
 import javax.annotation.Resource;
@@ -25,12 +26,22 @@ public class RepositoryServiceImpl<P extends PersistentObject> implements Reposi
     LOGGER.info("Save item status: {}", status);
   }
 
-  public List<P> getAll() {
+  public List<P> getAll(String filter) {
     LOGGER.debug("Loading all items.");
     List<P> items = this.db.loadAll();
     LOGGER.debug("Number of items -> {}", items.size());
 
     return items;
+  }
+
+  @Override
+  public List<EntityPersistent> getItems(String categoryId) {
+    return null;
+  }
+
+  @Override
+  public List<EntityPersistent> getExpressions(String categoryId, String itemId) {
+    return null;
   }
 
   public P getById(String id) {

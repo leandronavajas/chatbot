@@ -15,7 +15,7 @@ public class GetAllMessagesOperation implements Operation<GetAllMessageOperation
 
   @Override
   public List<EntityPersistent> execute(GetAllMessageOperationRequest request) {
-    return this.repositoryService.getAll();
+    return this.repositoryService.getAll(null);
   }
 
   @Resource
