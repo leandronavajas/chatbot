@@ -1,6 +1,7 @@
 package unlp.info.chatbot.client;
 
 import org.apache.http.HttpHeaders;
+import org.apache.http.client.HttpResponseException;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -41,7 +42,7 @@ public abstract class AbstractWitClient<R, H extends HttpRequestBase, O extends 
     try {
       httpResponse = httpClient.execute(httpRequest, responseHandler);
     } catch (IOException e) {
-      throw new WitApiException("[WIT CLIENT] An error occurred while calling Wit Api Client");
+      throw new WitApiException("[WIT CLIENT] An error occurred while calling Wit Api Client. Message: " + e.getMessage());
     }
 
     O response = this.getParser().parse(httpResponse);

@@ -1,10 +1,12 @@
 package unlp.info.chatbot.operation;
 
+import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import unlp.info.chatbot.client.Client;
 import unlp.info.chatbot.client.request.AddCategoryWitRequest;
+import unlp.info.chatbot.client.request.PutEntityWitRequest;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.model.EntityPersistent;
 import unlp.info.chatbot.operation.request.AddCategoryRequest;
@@ -19,6 +21,7 @@ public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategory
 
   private PersistentTransformer<AddCategoryRequest, EntityPersistent> categoryPersistentTransformer;
   private Client<AddCategoryWitRequest,AddEntityWitResponse> addCategoryWitClient;
+  private Client<PutEntityWitRequest, AddEntityWitResponse> putEntityWitClient;
 
   @Override
   protected Logger getLogger() {
@@ -33,7 +36,15 @@ public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategory
     addCategoryWitRequest.setEntity(request.getEntity());
     addCategoryWitRequest.setDescription(request.getDescription());
 
-    return this.addCategoryWitClient.call(addCategoryWitRequest);
+    AddEntityWitResponse addEntityWitResponse = this.addCategoryWitClient.call(addCategoryWitRequest);
+
+    PutEntityWitRequest putEntityWitRequest = new PutEntityWitRequest();
+    putEntityWitRequest.setEntityName(addEntityWitResponse.getName());
+    putEntityWitRequest.setLookups(Lists.newArrayList("\"free-text\"", "\"keywords\""));
+    this.putEntityWitClient.call(putEntityWitRequest);
+
+    return addEntityWitResponse;
+
   }
 
   @Override
@@ -51,5 +62,10 @@ public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategory
   @Resource
   public void setAddCategoryWitClient(Client<AddCategoryWitRequest, AddEntityWitResponse> addCategoryWitClient) {
     this.addCategoryWitClient = addCategoryWitClient;
+  }
+
+  @Resource
+  public void setPutEntityWitClient(Client<PutEntityWitRequest, AddEntityWitResponse> putEntityWitClient) {
+    this.putEntityWitClient = putEntityWitClient;
   }
 }

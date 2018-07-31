@@ -1,10 +1,12 @@
 package unlp.info.chatbot.client.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WitMessageMetricResponse implements WitResponse {
 
   private String metadata;

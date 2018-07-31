@@ -1,6 +1,5 @@
 package unlp.info.chatbot.client;
 
-import com.google.common.collect.Lists;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;

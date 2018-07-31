@@ -29,13 +29,6 @@ public class AddItemWitClient extends AbstractAddEntityWitClient<AddItemWitReque
     AddItemWitBody body = new AddItemWitBody();
     body.setValue(request.getItemId());
 
-    // TODO: LN analizar si hay que settear en la creacion
-    //body.setExpressions();
-    //body.setMetadata();
-
-    // example
-    // {"value":"London", "expressions":["London"], "metadata":"CITY_1234"}'
-
     String bodyJsonFormat = body.toString();
 
     try {
