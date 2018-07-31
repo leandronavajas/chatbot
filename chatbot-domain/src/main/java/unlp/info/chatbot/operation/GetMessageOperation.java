@@ -1,5 +1,6 @@
 package unlp.info.chatbot.operation;
 
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -44,11 +45,19 @@ public class GetMessageOperation implements Operation<GetMessageRequest, EntityP
     Set<Map.Entry<String, List<WitMessageMetricResponse>>> metrics = entities.entrySet();
 
     if (CollectionUtils.isEmpty(metrics)) {
-      throw new ItemNotFoundException("[GET MESSAGE OPERATION] The message must have be metrics defined");
+      throw new ItemNotFoundException("[GET MESSAGE OPERATION] Sorry! but i don't understand");
     }
 
-    WitMessageMetricResponse metric = metrics.iterator().next().getValue().iterator().next();
-    LOGGER.debug("[GET MESSAGE OPERATION] By the moment, only get the first metric");
+    Map<String, EntityPersistent> selector = Maps.newHashMap();
+    for (WitMessageMetricResponse metric : metrics.iterator().next().getValue()) {
+      EntityPersistent entityPersistent = this.getEntityPersistent(metric);
+      selector.put(entityPersistent.getKind(), entityPersistent);
+    }
+
+    return this.getEntityPersistentByPriority(metrics, selector);
+  }
+
+  private EntityPersistent getEntityPersistent(WitMessageMetricResponse metric) {
 
     BigDecimal confidence = metric.getConfidence();
 
@@ -64,6 +73,25 @@ public class GetMessageOperation implements Operation<GetMessageRequest, EntityP
 
     return this.messageRepositoryService.getById(metric.getValue());
   }
+
+  private EntityPersistent getEntityPersistentByPriority(Set<Map.Entry<String, List<WitMessageMetricResponse>>> metrics, Map<String, EntityPersistent> selector) {
+    if (CollectionUtils.isEmpty(selector)) {
+      throw new ItemNotFoundException("[GET MESSAGE OPERATION] Wit data is not present in DB. Metric: " + metrics.iterator().next().getValue());
+    }
+
+    // Select by priority
+
+    if (selector.containsKey("ITEM")) {
+      return selector.get("ITEM");
+    }
+
+    if (selector.containsKey("CATEGORY")) {
+      return selector.get("CATEGORY");
+    }
+
+    throw new ItemNotFoundException("[GET MESSAGE OPERATION] The message must have be metrics defined. Metric: " + metrics.iterator().next().getValue());
+  }
+  
 
   @Resource
   public void setMessageRepositoryService(RepositoryService<EntityPersistent> messageRepositoryService) {
