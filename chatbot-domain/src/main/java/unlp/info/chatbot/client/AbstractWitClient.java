@@ -40,9 +40,18 @@ public abstract class AbstractWitClient<R, H extends HttpRequestBase, O extends 
     ResponseHandler<String> responseHandler = new BasicResponseHandler();
 
     try {
-      httpResponse = httpClient.execute(httpRequest, responseHandler);
+        httpResponse = httpClient.execute(httpRequest, responseHandler);
+
     } catch (IOException e) {
-      throw new WitApiException("[WIT CLIENT] An error occurred while calling Wit Api Client. Message: " + e.getMessage());
+        throw new WitApiException("[WIT CLIENT] An error occurred while calling Wit Api Client. Message: " + e.getMessage());
+
+    } finally {
+      try {
+        httpClient.close();
+      } catch (IOException e) {
+        throw new WitApiException("[WIT CLIENT] An error occurred while closing Wit Api Client. Message: " + e.getMessage());
+      }
+
     }
 
     O response = this.getParser().parse(httpResponse);
