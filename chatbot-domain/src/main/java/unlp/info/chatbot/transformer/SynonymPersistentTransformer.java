@@ -2,19 +2,19 @@ package unlp.info.chatbot.transformer;
 
 import org.springframework.stereotype.Component;
 import unlp.info.chatbot.model.EntityPersistent;
-import unlp.info.chatbot.operation.request.AddExpressionRequest;
+import unlp.info.chatbot.operation.request.AddSynonymRequest;
 
 @Component
-public class ExpressionPersistentTransformer implements PersistentTransformer<AddExpressionRequest, EntityPersistent> {
+public class SynonymPersistentTransformer implements PersistentTransformer<AddSynonymRequest, EntityPersistent> {
 
   @Override
-  public EntityPersistent transform(AddExpressionRequest in) {
+  public EntityPersistent transform(AddSynonymRequest in) {
     EntityPersistent entityPersistent = new EntityPersistent();
 
-    entityPersistent.setId(in.getExpressionId());
+    entityPersistent.setId(in.getSynonymId());
     entityPersistent.setParentId(in.getItemId());
     entityPersistent.setDescription(in.getDescription());
-    entityPersistent.setKind("EXPRESSION");
+    entityPersistent.setKind("SYNONYM");
     entityPersistent.setWitId(in.getWitId());
 
     return entityPersistent;

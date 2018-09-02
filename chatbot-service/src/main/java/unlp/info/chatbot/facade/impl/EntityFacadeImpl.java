@@ -2,7 +2,7 @@ package unlp.info.chatbot.facade.impl;
 
 import org.springframework.stereotype.Component;
 import unlp.info.chatbot.controller.body.AddEntityBody;
-import unlp.info.chatbot.controller.body.AddExpressionPathAndBody;
+import unlp.info.chatbot.controller.body.AddSynonymPathAndBody;
 import unlp.info.chatbot.controller.body.AddItemPathAndBody;
 import unlp.info.chatbot.operation.request.*;
 import unlp.info.chatbot.controller.body.transformer.RequestTransformer;
@@ -20,15 +20,15 @@ public class EntityFacadeImpl implements EntityFacade {
 
   private RequestTransformer<AddEntityBody, AddCategoryRequest> addCategoryRequestTransformer;
   private RequestTransformer<AddItemPathAndBody, AddItemRequest> addItemRequestTransformer;
-  private RequestTransformer<AddExpressionPathAndBody, AddExpressionRequest> addExpressionRequestTransformer;
+  private RequestTransformer<AddSynonymPathAndBody, AddSynonymRequest> addSynonymRequestTransformer;
 
   private Operation<AddCategoryRequest, EntityPersistent> addCategoryOperation;
   private Operation<AddItemRequest, EntityPersistent> addItemOperation;
-  private Operation<AddExpressionRequest, EntityPersistent> addExpressionOperation;
+  private Operation<AddSynonymRequest, EntityPersistent> addSynonymOperation;
 
   private Operation<GetAllEntitiesRequest, List<EntityPersistent>> getAllEntitiesOperation;
   private Operation<GetItemsForCategoryRequest, List<EntityPersistent>> getItemsForCategoryOperation;
-  private Operation<GetExpressionsForItemRequest, List<EntityPersistent>> getExpressionsForItemOperation;
+  private Operation<GetSynonymsForItemRequest, List<EntityPersistent>> getSynonymsForItemOperation;
 
   private DTOTransformer<EntityPersistent, MessageDTO> messageDTOTransformer;
   private DTOTransformer<List<EntityPersistent>, List<MessageDTO>> messageDTOListTransformer;
@@ -56,13 +56,13 @@ public class EntityFacadeImpl implements EntityFacade {
   }
 
   @Override
-  public MessageDTO addExpression(String categoryId, String itemId, AddEntityBody body) {
+  public MessageDTO addSynonym(String categoryId, String itemId, AddEntityBody body) {
 
-    AddExpressionPathAndBody addExpressionPathAndBody = new AddExpressionPathAndBody(categoryId, itemId, body);
+    AddSynonymPathAndBody addSynonymPathAndBody = new AddSynonymPathAndBody(categoryId, itemId, body);
 
-    AddExpressionRequest addExpressionRequest = this.addExpressionRequestTransformer.transform(addExpressionPathAndBody);
+    AddSynonymRequest addSynonymRequest = this.addSynonymRequestTransformer.transform(addSynonymPathAndBody);
 
-    EntityPersistent entityPersistent = this.addExpressionOperation.execute(addExpressionRequest);
+    EntityPersistent entityPersistent = this.addSynonymOperation.execute(addSynonymRequest);
 
     return this.messageDTOTransformer.transform(entityPersistent);
   }
@@ -87,10 +87,10 @@ public class EntityFacadeImpl implements EntityFacade {
   }
 
   @Override
-  public List<MessageDTO> getExpressionsForItem(String categoryId, String itemId) {
-    GetExpressionsForItemRequest request = new GetExpressionsForItemRequest(categoryId, itemId);
+  public List<MessageDTO> getSynonymsForItem(String categoryId, String itemId) {
+    GetSynonymsForItemRequest request = new GetSynonymsForItemRequest(categoryId, itemId);
 
-    List<EntityPersistent> entities = this.getExpressionsForItemOperation.execute(request);
+    List<EntityPersistent> entities = this.getSynonymsForItemOperation.execute(request);
 
     return this.messageDTOListTransformer.transform(entities);
   }
@@ -107,8 +107,8 @@ public class EntityFacadeImpl implements EntityFacade {
   }
 
   @Resource
-  public void setAddExpressionRequestTransformer(RequestTransformer<AddExpressionPathAndBody, AddExpressionRequest> addExpressionRequestTransformer) {
-    this.addExpressionRequestTransformer = addExpressionRequestTransformer;
+  public void setAddSynonymRequestTransformer(RequestTransformer<AddSynonymPathAndBody, AddSynonymRequest> addSynonymRequestTransformer) {
+    this.addSynonymRequestTransformer = addSynonymRequestTransformer;
   }
 
   @Resource
@@ -127,8 +127,8 @@ public class EntityFacadeImpl implements EntityFacade {
   }
 
   @Resource
-  public void setAddExpressionOperation(Operation<AddExpressionRequest, EntityPersistent> addExpressionOperation) {
-    this.addExpressionOperation = addExpressionOperation;
+  public void setAddSynonymOperation(Operation<AddSynonymRequest, EntityPersistent> addSynonymOperation) {
+    this.addSynonymOperation = addSynonymOperation;
   }
 
   @Resource
@@ -147,7 +147,7 @@ public class EntityFacadeImpl implements EntityFacade {
   }
 
   @Resource
-  public void setGetExpressionsForItemOperation(Operation<GetExpressionsForItemRequest, List<EntityPersistent>> getExpressionsForItemOperation) {
-    this.getExpressionsForItemOperation = getExpressionsForItemOperation;
+  public void setGetSynonymsForItemOperation(Operation<GetSynonymsForItemRequest, List<EntityPersistent>> getSynonymsForItemOperation) {
+    this.getSynonymsForItemOperation = getSynonymsForItemOperation;
   }
 }

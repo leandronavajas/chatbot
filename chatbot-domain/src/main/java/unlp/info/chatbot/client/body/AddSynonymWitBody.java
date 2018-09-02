@@ -3,7 +3,7 @@ package unlp.info.chatbot.client.body;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-public class AddExpressionWitBody {
+public class AddSynonymWitBody {
 
   private String expression;
 

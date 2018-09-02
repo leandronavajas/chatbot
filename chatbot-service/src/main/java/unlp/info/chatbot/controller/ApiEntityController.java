@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import unlp.info.chatbot.annotation.RequestTracking;
-import unlp.info.chatbot.client.request.AddValueEntityWitRequest;
-import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.controller.body.AddEntityBody;
 import unlp.info.chatbot.dto.MessageDTO;
 import unlp.info.chatbot.facade.EntityFacade;
@@ -39,11 +37,11 @@ public class ApiEntityController {
   }
 
   @RequestTracking
-  @PostMapping("/category/{categoryId}/item/{itemId}/expression")
-  public MessageDTO addExpression(@PathVariable String categoryId, @PathVariable String itemId, @RequestBody AddEntityBody body) {
+  @PostMapping("/category/{categoryId}/item/{itemId}/synonym")
+  public MessageDTO addSynonym(@PathVariable String categoryId, @PathVariable String itemId, @RequestBody AddEntityBody body) {
     LOGGER.info("Add Item for category: {} -> {}", categoryId, body);
 
-    return this.entityFacade.addExpression(categoryId, itemId, body);
+    return this.entityFacade.addSynonym(categoryId, itemId, body);
   }
 
 
@@ -65,10 +63,10 @@ public class ApiEntityController {
 
   @RequestTracking
   @GetMapping("/category/{categoryId}/item/{itemId}")
-  public List<MessageDTO> getExpressionsForItem(@PathVariable String categoryId, @PathVariable String itemId) {
-    LOGGER.info("Get expressions for item. Category_id: {} - Item_id: {}", categoryId, itemId);
+  public List<MessageDTO> getSynonymsForItem(@PathVariable String categoryId, @PathVariable String itemId) {
+    LOGGER.info("Get synonyms for item. Category_id: {} - Item_id: {}", categoryId, itemId);
 
-    return this.entityFacade.getExpressionsForItem(categoryId, itemId);
+    return this.entityFacade.getSynonymsForItem(categoryId, itemId);
   }
 
 

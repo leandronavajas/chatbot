@@ -11,11 +11,11 @@ public interface EntityFacade {
 
   MessageDTO addItem(String categoryId, AddEntityBody body);
 
-  MessageDTO addExpression(String categoryId, String itemId, AddEntityBody body);
+  MessageDTO addSynonym(String categoryId, String itemId, AddEntityBody body);
 
   List<MessageDTO> getAll(String filter);
 
   List<MessageDTO> getItemsForCategory(String categoryId);
 
-  List<MessageDTO> getExpressionsForItem(String categoryId, String itemId);
+  List<MessageDTO> getSynonymsForItem(String categoryId, String itemId);
 }

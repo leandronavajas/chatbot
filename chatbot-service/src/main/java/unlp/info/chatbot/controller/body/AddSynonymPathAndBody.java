@@ -1,12 +1,12 @@
 package unlp.info.chatbot.controller.body;
 
-public class AddExpressionPathAndBody {
+public class AddSynonymPathAndBody {
 
   private String categoryId;
   private String itemId;
   private AddEntityBody body;
 
-  public AddExpressionPathAndBody(String categoryId, String itemId, AddEntityBody body) {
+  public AddSynonymPathAndBody(String categoryId, String itemId, AddEntityBody body) {
     this.categoryId = categoryId;
     this.itemId = itemId;
     this.body = body;

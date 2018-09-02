@@ -83,22 +83,21 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
     return this.mappingAll(rows);
   }
 
-  public List<EntityPersistent> getExpressions(String categoryId, String itemId) {
+  public List<EntityPersistent> getSynonyms(String categoryId, String itemId) {
     Session session = this.cassandraSessionService.cassandraSession();
 
     Statement statement = QueryBuilder
         .select().all()
         .from(KEYSPACE, TABLE).allowFiltering()
         .where(QueryBuilder.eq("parentid", itemId))
-        //.and(QueryBuilder.eq("parentid", categoryId))
-        .and(QueryBuilder.eq("kind", "EXPRESSION"));
+        .and(QueryBuilder.eq("kind", "SYNONYM"));
 
     ResultSet resultSet = session.execute(statement);
 
     List<Row> rows = resultSet.all();
 
     if (CollectionUtils.isEmpty(rows)) {
-      throw new ItemNotFoundException("[MANAGE REPOSITORY SERVICE] Get expressions for item. Category_id: " + categoryId + " - Item_id: " + itemId);
+      throw new ItemNotFoundException("[MANAGE REPOSITORY SERVICE] Get synonyms for item. Category_id: " + categoryId + " - Item_id: " + itemId);
     }
 
     return this.mappingAll(rows);

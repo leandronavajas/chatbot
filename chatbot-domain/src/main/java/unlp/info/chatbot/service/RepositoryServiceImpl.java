@@ -40,7 +40,7 @@ public class RepositoryServiceImpl<P extends PersistentObject> implements Reposi
   }
 
   @Override
-  public List<EntityPersistent> getExpressions(String categoryId, String itemId) {
+  public List<EntityPersistent> getSynonyms(String categoryId, String itemId) {
     return null;
   }
 
