@@ -2,13 +2,13 @@ package unlp.info.chatbot.transformer;
 
 import org.springframework.stereotype.Component;
 import unlp.info.chatbot.model.EntityPersistent;
-import unlp.info.chatbot.operation.request.AddItemRequest;
+import unlp.info.chatbot.operation.request.AddItemOperationRequest;
 
 @Component
-public class ItemPersistentTransformer implements PersistentTransformer<AddItemRequest, EntityPersistent> {
+public class ItemPersistentTransformer implements PersistentTransformer<AddItemOperationRequest, EntityPersistent> {
 
   @Override
-  public EntityPersistent transform(AddItemRequest in) {
+  public EntityPersistent transform(AddItemOperationRequest in) {
     EntityPersistent entityPersistent = new EntityPersistent();
 
     entityPersistent.setId(in.getItemId());

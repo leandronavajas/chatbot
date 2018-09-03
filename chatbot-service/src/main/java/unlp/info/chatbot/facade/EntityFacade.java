@@ -13,6 +13,8 @@ public interface EntityFacade {
 
   MessageDTO addSynonym(String categoryId, String itemId, AddEntityBody body);
 
+  MessageDTO addPhrase(String categoryId, String itemId, AddEntityBody body);
+
   List<MessageDTO> getAll(String filter);
 
   List<MessageDTO> getItemsForCategory(String categoryId);

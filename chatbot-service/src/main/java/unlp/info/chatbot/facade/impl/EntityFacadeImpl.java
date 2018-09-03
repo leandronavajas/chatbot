@@ -18,13 +18,14 @@ import java.util.List;
 @Component
 public class EntityFacadeImpl implements EntityFacade {
 
-  private RequestTransformer<AddEntityBody, AddCategoryRequest> addCategoryRequestTransformer;
-  private RequestTransformer<AddItemPathAndBody, AddItemRequest> addItemRequestTransformer;
-  private RequestTransformer<AddSynonymPathAndBody, AddSynonymRequest> addSynonymRequestTransformer;
+  private RequestTransformer<AddEntityBody, AddCategoryOperationRequest> addCategoryRequestTransformer;
+  private RequestTransformer<AddItemPathAndBody, AddItemOperationRequest> addItemRequestTransformer;
+  private RequestTransformer<AddSynonymPathAndBody, AddSynonymOperationRequest> addSynonymRequestTransformer;
 
-  private Operation<AddCategoryRequest, EntityPersistent> addCategoryOperation;
-  private Operation<AddItemRequest, EntityPersistent> addItemOperation;
-  private Operation<AddSynonymRequest, EntityPersistent> addSynonymOperation;
+  private Operation<AddCategoryOperationRequest, EntityPersistent> addCategoryOperation;
+  private Operation<AddItemOperationRequest, EntityPersistent> addItemOperation;
+  private Operation<AddSynonymOperationRequest, EntityPersistent> addSynonymOperation;
+  private Operation<AddPhraseOperationRequest, EntityPersistent> addPhraseOperation;
 
   private Operation<GetAllEntitiesRequest, List<EntityPersistent>> getAllEntitiesOperation;
   private Operation<GetItemsForCategoryRequest, List<EntityPersistent>> getItemsForCategoryOperation;
@@ -36,9 +37,9 @@ public class EntityFacadeImpl implements EntityFacade {
   @Override
   public MessageDTO addCategory(AddEntityBody body) {
 
-    AddCategoryRequest addCategoryRequest = this.addCategoryRequestTransformer.transform(body);
+    AddCategoryOperationRequest addCategoryOperationRequest = this.addCategoryRequestTransformer.transform(body);
 
-    EntityPersistent entityPersistent = this.addCategoryOperation.execute(addCategoryRequest);
+    EntityPersistent entityPersistent = this.addCategoryOperation.execute(addCategoryOperationRequest);
 
     return this.messageDTOTransformer.transform(entityPersistent);
   }
@@ -48,7 +49,7 @@ public class EntityFacadeImpl implements EntityFacade {
 
     AddItemPathAndBody addItemPathAndBody = new AddItemPathAndBody(categoryId, body);
 
-    AddItemRequest addItemRequest = this.addItemRequestTransformer.transform(addItemPathAndBody);
+    AddItemOperationRequest addItemRequest = this.addItemRequestTransformer.transform(addItemPathAndBody);
 
     EntityPersistent entityPersistent = this.addItemOperation.execute(addItemRequest);
 
@@ -60,9 +61,22 @@ public class EntityFacadeImpl implements EntityFacade {
 
     AddSynonymPathAndBody addSynonymPathAndBody = new AddSynonymPathAndBody(categoryId, itemId, body);
 
-    AddSynonymRequest addSynonymRequest = this.addSynonymRequestTransformer.transform(addSynonymPathAndBody);
+    AddSynonymOperationRequest addSynonymOperationRequest = this.addSynonymRequestTransformer.transform(addSynonymPathAndBody);
 
-    EntityPersistent entityPersistent = this.addSynonymOperation.execute(addSynonymRequest);
+    EntityPersistent entityPersistent = this.addSynonymOperation.execute(addSynonymOperationRequest);
+
+    return this.messageDTOTransformer.transform(entityPersistent);
+  }
+
+  @Override
+  public MessageDTO addPhrase(String categoryId, String itemId, AddEntityBody body) {
+
+    AddPhraseOperationRequest addPhraseOperationRequest = new AddPhraseOperationRequest();
+    addPhraseOperationRequest.setEntity(categoryId);
+    addPhraseOperationRequest.setItemId(itemId);
+    addPhraseOperationRequest.setDescription(body.getDescription());
+
+    EntityPersistent entityPersistent = this.addPhraseOperation.execute(addPhraseOperationRequest);
 
     return this.messageDTOTransformer.transform(entityPersistent);
   }
@@ -97,17 +111,17 @@ public class EntityFacadeImpl implements EntityFacade {
 
 
   @Resource
-  public void setAddCategoryRequestTransformer(RequestTransformer<AddEntityBody, AddCategoryRequest> addCategoryRequestTransformer) {
+  public void setAddCategoryRequestTransformer(RequestTransformer<AddEntityBody, AddCategoryOperationRequest> addCategoryRequestTransformer) {
     this.addCategoryRequestTransformer = addCategoryRequestTransformer;
   }
 
   @Resource
-  public void setAddItemRequestTransformer(RequestTransformer<AddItemPathAndBody, AddItemRequest> addItemRequestTransformer) {
+  public void setAddItemRequestTransformer(RequestTransformer<AddItemPathAndBody, AddItemOperationRequest> addItemRequestTransformer) {
     this.addItemRequestTransformer = addItemRequestTransformer;
   }
 
   @Resource
-  public void setAddSynonymRequestTransformer(RequestTransformer<AddSynonymPathAndBody, AddSynonymRequest> addSynonymRequestTransformer) {
+  public void setAddSynonymRequestTransformer(RequestTransformer<AddSynonymPathAndBody, AddSynonymOperationRequest> addSynonymRequestTransformer) {
     this.addSynonymRequestTransformer = addSynonymRequestTransformer;
   }
 
@@ -117,17 +131,17 @@ public class EntityFacadeImpl implements EntityFacade {
   }
 
   @Resource
-  public void setAddCategoryOperation(Operation<AddCategoryRequest, EntityPersistent> addCategoryOperation) {
+  public void setAddCategoryOperation(Operation<AddCategoryOperationRequest, EntityPersistent> addCategoryOperation) {
     this.addCategoryOperation = addCategoryOperation;
   }
 
   @Resource
-  public void setAddItemOperation(Operation<AddItemRequest, EntityPersistent> addItemOperation) {
+  public void setAddItemOperation(Operation<AddItemOperationRequest, EntityPersistent> addItemOperation) {
     this.addItemOperation = addItemOperation;
   }
 
   @Resource
-  public void setAddSynonymOperation(Operation<AddSynonymRequest, EntityPersistent> addSynonymOperation) {
+  public void setAddSynonymOperation(Operation<AddSynonymOperationRequest, EntityPersistent> addSynonymOperation) {
     this.addSynonymOperation = addSynonymOperation;
   }
 
@@ -149,5 +163,10 @@ public class EntityFacadeImpl implements EntityFacade {
   @Resource
   public void setGetSynonymsForItemOperation(Operation<GetSynonymsForItemRequest, List<EntityPersistent>> getSynonymsForItemOperation) {
     this.getSynonymsForItemOperation = getSynonymsForItemOperation;
+  }
+
+  @Resource
+  public void setAddPhraseOperation(Operation<AddPhraseOperationRequest, EntityPersistent> addPhraseOperation) {
+    this.addPhraseOperation = addPhraseOperation;
   }
 }

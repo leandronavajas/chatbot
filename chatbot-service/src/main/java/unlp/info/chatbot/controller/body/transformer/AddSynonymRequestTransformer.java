@@ -2,21 +2,21 @@ package unlp.info.chatbot.controller.body.transformer;
 
 import org.springframework.stereotype.Component;
 import unlp.info.chatbot.controller.body.AddSynonymPathAndBody;
-import unlp.info.chatbot.operation.request.AddSynonymRequest;
+import unlp.info.chatbot.operation.request.AddSynonymOperationRequest;
 
 @Component
-public class AddSynonymRequestTransformer implements  RequestTransformer<AddSynonymPathAndBody, AddSynonymRequest> {
+public class AddSynonymRequestTransformer implements  RequestTransformer<AddSynonymPathAndBody, AddSynonymOperationRequest> {
 
   @Override
-  public AddSynonymRequest transform(AddSynonymPathAndBody in) {
-    AddSynonymRequest addSynonymRequest = new AddSynonymRequest();
+  public AddSynonymOperationRequest transform(AddSynonymPathAndBody in) {
+    AddSynonymOperationRequest addSynonymOperationRequest = new AddSynonymOperationRequest();
 
-    addSynonymRequest.setEntity(in.getCategoryId());
-    addSynonymRequest.setLinks(in.getBody().getLinks());
-    addSynonymRequest.setItemId(in.getItemId());
-    addSynonymRequest.setSynonymId(in.getBody().getDescription());
+    addSynonymOperationRequest.setEntity(in.getCategoryId());
+    addSynonymOperationRequest.setLinks(in.getBody().getLinks());
+    addSynonymOperationRequest.setItemId(in.getItemId());
+    addSynonymOperationRequest.setSynonymId(in.getBody().getDescription());
 
-    return addSynonymRequest;
+    return addSynonymOperationRequest;
   }
 
 }

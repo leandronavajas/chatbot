@@ -2,13 +2,13 @@ package unlp.info.chatbot.transformer;
 
 import org.springframework.stereotype.Component;
 import unlp.info.chatbot.model.EntityPersistent;
-import unlp.info.chatbot.operation.request.AddSynonymRequest;
+import unlp.info.chatbot.operation.request.AddSynonymOperationRequest;
 
 @Component
-public class SynonymPersistentTransformer implements PersistentTransformer<AddSynonymRequest, EntityPersistent> {
+public class SynonymPersistentTransformer implements PersistentTransformer<AddSynonymOperationRequest, EntityPersistent> {
 
   @Override
-  public EntityPersistent transform(AddSynonymRequest in) {
+  public EntityPersistent transform(AddSynonymOperationRequest in) {
     EntityPersistent entityPersistent = new EntityPersistent();
 
     entityPersistent.setId(in.getSynonymId());

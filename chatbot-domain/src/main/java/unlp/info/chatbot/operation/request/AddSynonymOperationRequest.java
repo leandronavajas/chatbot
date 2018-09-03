@@ -1,6 +1,6 @@
 package unlp.info.chatbot.operation.request;
 
-public class AddSynonymRequest extends AddItemRequest {
+public class AddSynonymOperationRequest extends AddItemOperationRequest {
 
   private String synonymId;
 

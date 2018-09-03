@@ -4,13 +4,13 @@ import org.slf4j.Logger;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.exception.NullEntityException;
 import unlp.info.chatbot.model.EntityPersistent;
-import unlp.info.chatbot.operation.request.AddCategoryRequest;
+import unlp.info.chatbot.operation.request.AddCategoryOperationRequest;
 import unlp.info.chatbot.service.RepositoryService;
 import unlp.info.chatbot.transformer.PersistentTransformer;
 
 import javax.annotation.Resource;
 
-public abstract class AbstractAddEntityOperation<R extends AddCategoryRequest, P extends EntityPersistent> implements Operation<R, P>{
+public abstract class AbstractAddEntityOperation<R extends AddCategoryOperationRequest, P extends EntityPersistent> implements Operation<R, P>{
 
   private RepositoryService<EntityPersistent> messageRepositoryService;
 

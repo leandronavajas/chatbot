@@ -1,6 +1,6 @@
 package unlp.info.chatbot.operation.request;
 
-public class AddItemRequest extends AddCategoryRequest {
+public class AddItemOperationRequest extends AddCategoryOperationRequest {
 
   private String itemId;
 

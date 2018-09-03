@@ -9,17 +9,17 @@ import unlp.info.chatbot.client.request.AddCategoryWitRequest;
 import unlp.info.chatbot.client.request.PutEntityWitRequest;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.model.EntityPersistent;
-import unlp.info.chatbot.operation.request.AddCategoryRequest;
+import unlp.info.chatbot.operation.request.AddCategoryOperationRequest;
 import unlp.info.chatbot.transformer.PersistentTransformer;
 
 import javax.annotation.Resource;
 
 @Component
-public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategoryRequest, EntityPersistent> {
+public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategoryOperationRequest, EntityPersistent> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AddCategoryOperation.class);
 
-  private PersistentTransformer<AddCategoryRequest, EntityPersistent> categoryPersistentTransformer;
+  private PersistentTransformer<AddCategoryOperationRequest, EntityPersistent> categoryPersistentTransformer;
   private Client<AddCategoryWitRequest,AddEntityWitResponse> addCategoryWitClient;
   private Client<PutEntityWitRequest, AddEntityWitResponse> putEntityWitClient;
 
@@ -31,7 +31,7 @@ public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategory
 
 
   @Override
-  protected AddEntityWitResponse callWit(AddCategoryRequest request) {
+  protected AddEntityWitResponse callWit(AddCategoryOperationRequest request) {
     AddCategoryWitRequest addCategoryWitRequest = new AddCategoryWitRequest();
     addCategoryWitRequest.setEntity(request.getEntity());
     addCategoryWitRequest.setDescription(request.getDescription());
@@ -48,14 +48,14 @@ public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategory
   }
 
   @Override
-  protected PersistentTransformer<AddCategoryRequest, EntityPersistent> getPersistentTransformer() {
+  protected PersistentTransformer<AddCategoryOperationRequest, EntityPersistent> getPersistentTransformer() {
     return this.categoryPersistentTransformer;
   }
 
 
 
   @Resource
-  public void setCategoryPersistentTransformer(PersistentTransformer<AddCategoryRequest, EntityPersistent> categoryPersistentTransformer) {
+  public void setCategoryPersistentTransformer(PersistentTransformer<AddCategoryOperationRequest, EntityPersistent> categoryPersistentTransformer) {
     this.categoryPersistentTransformer = categoryPersistentTransformer;
   }
 

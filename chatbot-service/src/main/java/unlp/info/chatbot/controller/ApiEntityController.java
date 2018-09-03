@@ -39,9 +39,17 @@ public class ApiEntityController {
   @RequestTracking
   @PostMapping("/category/{categoryId}/item/{itemId}/synonym")
   public MessageDTO addSynonym(@PathVariable String categoryId, @PathVariable String itemId, @RequestBody AddEntityBody body) {
-    LOGGER.info("Add Item for category: {} -> {}", categoryId, body);
+    LOGGER.info("Add Synonym: {} for item: {} in category: {}", body, itemId, categoryId);
 
     return this.entityFacade.addSynonym(categoryId, itemId, body);
+  }
+
+  @RequestTracking
+  @PostMapping("/category/{categoryId}/item/{itemId}/phrase")
+  public MessageDTO addPhrase(@PathVariable String categoryId, @PathVariable String itemId, @RequestBody AddEntityBody body) {
+    LOGGER.info("Add phrase: {} -> for item: {} in category: {} ", body, itemId, categoryId);
+
+    return this.entityFacade.addPhrase(categoryId, itemId, body);
   }
 
 

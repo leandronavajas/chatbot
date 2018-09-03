@@ -7,18 +7,18 @@ import unlp.info.chatbot.client.Client;
 import unlp.info.chatbot.client.request.AddSynonymWitRequest;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.model.EntityPersistent;
-import unlp.info.chatbot.operation.request.AddSynonymRequest;
+import unlp.info.chatbot.operation.request.AddSynonymOperationRequest;
 import unlp.info.chatbot.transformer.PersistentTransformer;
 
 import javax.annotation.Resource;
 
 @Component
-public class AddSynonymOperation extends AbstractAddEntityOperation<AddSynonymRequest, EntityPersistent> {
+public class AddSynonymOperation extends AbstractAddEntityOperation<AddSynonymOperationRequest, EntityPersistent> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AddSynonymOperation.class);
 
   private Client<AddSynonymWitRequest, AddEntityWitResponse> addSynonymWitClient;
-  private PersistentTransformer<AddSynonymRequest, EntityPersistent> synonymPersistentTransformer;
+  private PersistentTransformer<AddSynonymOperationRequest, EntityPersistent> synonymPersistentTransformer;
 
   @Override
   protected Logger getLogger() {
@@ -28,7 +28,7 @@ public class AddSynonymOperation extends AbstractAddEntityOperation<AddSynonymRe
 
 
   @Override
-  protected AddEntityWitResponse callWit(AddSynonymRequest request) {
+  protected AddEntityWitResponse callWit(AddSynonymOperationRequest request) {
     AddSynonymWitRequest witRequest = new AddSynonymWitRequest();
 
     witRequest.setEntity(request.getEntity());
@@ -40,7 +40,7 @@ public class AddSynonymOperation extends AbstractAddEntityOperation<AddSynonymRe
   }
 
   @Override
-  protected PersistentTransformer<AddSynonymRequest, EntityPersistent> getPersistentTransformer() {
+  protected PersistentTransformer<AddSynonymOperationRequest, EntityPersistent> getPersistentTransformer() {
     return this.synonymPersistentTransformer;
   }
 
@@ -52,7 +52,7 @@ public class AddSynonymOperation extends AbstractAddEntityOperation<AddSynonymRe
   }
 
   @Resource
-  public void setSynonymPersistentTransformer(PersistentTransformer<AddSynonymRequest, EntityPersistent> synonymPersistentTransformer) {
+  public void setSynonymPersistentTransformer(PersistentTransformer<AddSynonymOperationRequest, EntityPersistent> synonymPersistentTransformer) {
     this.synonymPersistentTransformer = synonymPersistentTransformer;
   }
 }
