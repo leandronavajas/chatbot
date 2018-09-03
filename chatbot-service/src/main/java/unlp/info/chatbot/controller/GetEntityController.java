@@ -35,7 +35,7 @@ public class GetEntityController {
   }
 
   @RequestTracking
-  @GetMapping("/category/{categoryId}/item/{itemId}/phrases")
+  @GetMapping("/category/{categoryId}/item/{itemId}/synonyms")
   public List<MessageDTO> getSynonymsForItem(@PathVariable String categoryId, @PathVariable String itemId) {
     LOGGER.info("Get synonyms for item. Category_id: {} - Item_id: {}", categoryId, itemId);
 
