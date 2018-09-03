@@ -9,6 +9,7 @@ import unlp.info.chatbot.client.body.PutCategoryBody;
 import unlp.info.chatbot.client.parser.Parser;
 import unlp.info.chatbot.client.request.PutEntityWitRequest;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
+import unlp.info.chatbot.exception.ParseWitBodyException;
 
 import javax.annotation.Resource;
 import java.io.UnsupportedEncodingException;
@@ -42,7 +43,7 @@ public class PutEntityWitClient extends AbstractWitClient<PutEntityWitRequest, H
     try {
       httpRequest.setEntity(new StringEntity(bodyJsonFormat));
     } catch (UnsupportedEncodingException e) {
-      e.printStackTrace();
+      throw new ParseWitBodyException("[PARSER] An error occurred while parsing the Wit body");
     }
   }
 

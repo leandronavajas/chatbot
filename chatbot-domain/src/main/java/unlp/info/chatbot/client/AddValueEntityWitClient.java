@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import unlp.info.chatbot.client.body.AddItemWitBody;
 import unlp.info.chatbot.client.parser.Parser;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
+import unlp.info.chatbot.exception.ParseWitBodyException;
 import unlp.info.chatbot.operation.request.AddValueEntityOperationRequest;
 
 import javax.annotation.Resource;
@@ -38,13 +39,12 @@ public class AddValueEntityWitClient extends AbstractWitClient<AddValueEntityOpe
     body.setMetadata(request.getBody().getMetadata());
     body.setExpressions(request.getBody().getExpressions());
 
-    // TODO: LN chequear este toString -> puede romper las expressions
     String bodyExample = body.toString();
 
     try {
       httpRequest.setEntity(new StringEntity(bodyExample));
     } catch (UnsupportedEncodingException e) {
-      e.printStackTrace();
+      throw new ParseWitBodyException("[PARSER] An error occurred while parsing the Wit body");
     }
   }
 

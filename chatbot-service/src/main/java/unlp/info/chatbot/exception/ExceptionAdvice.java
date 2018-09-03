@@ -15,7 +15,7 @@ public class ExceptionAdvice {
   @ExceptionHandler({ApiException.class})
   public ResponseEntity<StatusResponse> handleNotFoundException(ApiException exception) {
 
-    LOGGER.debug("[ADVICE] Exception handler. Make Api response. Error Code: {} - Error message: {}", exception.getCode(), exception.getCauses());
+    LOGGER.error("[ADVICE] Exception handler. Make Api response. Error Code: {} - Error message: {}", exception.getCode(), exception.getCauses());
     StatusResponse responseStatus = new StatusResponse(exception.getStatus(), exception.getCauses());
     return ResponseEntity.status(exception.getCode()).body(responseStatus);
   }
