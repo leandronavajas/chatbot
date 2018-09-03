@@ -29,7 +29,8 @@ public class EntityFacadeImpl implements EntityFacade {
 
   private Operation<GetAllEntitiesRequest, List<EntityPersistent>> getAllEntitiesOperation;
   private Operation<GetItemsForCategoryRequest, List<EntityPersistent>> getItemsForCategoryOperation;
-  private Operation<GetSynonymsForItemRequest, List<EntityPersistent>> getSynonymsForItemOperation;
+  private Operation<GetExpressionsForItemRequest, List<EntityPersistent>> getSynonymsForItemOperation;
+  private Operation<GetExpressionsForItemRequest, List<EntityPersistent>> getPhrasesForItemOperation;
 
   private DTOTransformer<EntityPersistent, MessageDTO> messageDTOTransformer;
   private DTOTransformer<List<EntityPersistent>, List<MessageDTO>> messageDTOListTransformer;
@@ -102,9 +103,18 @@ public class EntityFacadeImpl implements EntityFacade {
 
   @Override
   public List<MessageDTO> getSynonymsForItem(String categoryId, String itemId) {
-    GetSynonymsForItemRequest request = new GetSynonymsForItemRequest(categoryId, itemId);
+    GetExpressionsForItemRequest request = new GetExpressionsForItemRequest(categoryId, itemId);
 
     List<EntityPersistent> entities = this.getSynonymsForItemOperation.execute(request);
+
+    return this.messageDTOListTransformer.transform(entities);
+  }
+
+  @Override
+  public List<MessageDTO> getPhrasesForItem(String categoryId, String itemId) {
+    GetExpressionsForItemRequest request = new GetExpressionsForItemRequest(categoryId, itemId);
+
+    List<EntityPersistent> entities = this.getPhrasesForItemOperation.execute(request);
 
     return this.messageDTOListTransformer.transform(entities);
   }
@@ -161,12 +171,17 @@ public class EntityFacadeImpl implements EntityFacade {
   }
 
   @Resource
-  public void setGetSynonymsForItemOperation(Operation<GetSynonymsForItemRequest, List<EntityPersistent>> getSynonymsForItemOperation) {
+  public void setGetSynonymsForItemOperation(Operation<GetExpressionsForItemRequest, List<EntityPersistent>> getSynonymsForItemOperation) {
     this.getSynonymsForItemOperation = getSynonymsForItemOperation;
   }
 
   @Resource
   public void setAddPhraseOperation(Operation<AddPhraseOperationRequest, EntityPersistent> addPhraseOperation) {
     this.addPhraseOperation = addPhraseOperation;
+  }
+
+  @Resource
+  public void setGetPhrasesForItemOperation(Operation<GetExpressionsForItemRequest, List<EntityPersistent>> getPhrasesForItemOperation) {
+    this.getPhrasesForItemOperation = getPhrasesForItemOperation;
   }
 }

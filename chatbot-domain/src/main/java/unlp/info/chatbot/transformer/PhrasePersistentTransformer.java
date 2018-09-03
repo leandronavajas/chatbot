@@ -12,7 +12,8 @@ public class PhrasePersistentTransformer implements PersistentTransformer<AddPhr
     EntityPersistent entityPersistent = new EntityPersistent();
 
     entityPersistent.setId(in.getDescription());
-    entityPersistent.setParentId(in.getEntity());
+    entityPersistent.setParentId(in.getItemId());
+    entityPersistent.setDescription(in.getDescription());
     entityPersistent.setKind("PHRASE");
     entityPersistent.setWitId(in.getWitId());
 

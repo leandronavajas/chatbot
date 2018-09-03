@@ -44,6 +44,11 @@ public class RepositoryServiceImpl<P extends PersistentObject> implements Reposi
     return null;
   }
 
+  @Override
+  public List<EntityPersistent> getPhrases(String categoryId, String itemId) {
+    return null;
+  }
+
   public P getById(String id) {
     LOGGER.debug("Loading item by ID: {}", id);
     P item = this.db.load(id);

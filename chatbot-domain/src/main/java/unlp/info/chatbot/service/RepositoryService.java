@@ -16,6 +16,8 @@ public interface RepositoryService<P extends PersistentObject> {
 
   List<EntityPersistent> getSynonyms(String categoryId, String itemId);
 
+  List<EntityPersistent> getPhrases(String categoryId, String itemId);
+
   P getById(String id);
 
   void remove(String id);

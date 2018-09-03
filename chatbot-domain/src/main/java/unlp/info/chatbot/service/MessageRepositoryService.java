@@ -84,13 +84,21 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
   }
 
   public List<EntityPersistent> getSynonyms(String categoryId, String itemId) {
+    return this.getExpressions(categoryId, itemId, "SYNONYM");
+  }
+
+  public List<EntityPersistent> getPhrases(String categoryId, String itemId) {
+    return this.getExpressions(categoryId, itemId, "PHRASE");
+  }
+
+  private List<EntityPersistent> getExpressions(String categoryId, String itemId, String kind) {
     Session session = this.cassandraSessionService.cassandraSession();
 
     Statement statement = QueryBuilder
         .select().all()
         .from(KEYSPACE, TABLE).allowFiltering()
         .where(QueryBuilder.eq("parentid", itemId))
-        .and(QueryBuilder.eq("kind", "SYNONYM"));
+        .and(QueryBuilder.eq("kind", kind));
 
     ResultSet resultSet = session.execute(statement);
 

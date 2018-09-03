@@ -1,11 +1,11 @@
 package unlp.info.chatbot.operation.request;
 
-public class GetSynonymsForItemRequest {
+public class GetExpressionsForItemRequest {
 
   private String categoryId;
   private String itemId;
 
-  public GetSynonymsForItemRequest(String categoryId, String itemId) {
+  public GetExpressionsForItemRequest(String categoryId, String itemId) {
     this.categoryId = categoryId;
     this.itemId = itemId;
   }

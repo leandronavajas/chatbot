@@ -9,13 +9,13 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Component
-public class GetSynonymsForItemOperation implements Operation<GetExpressionsForItemRequest, List<EntityPersistent>> {
+public class GetPhrasesForItemOperation implements Operation<GetExpressionsForItemRequest, List<EntityPersistent>> {
 
   private RepositoryService<EntityPersistent> messageRepositoryService;
 
   @Override
   public List<EntityPersistent> execute(GetExpressionsForItemRequest request) {
-    return this.messageRepositoryService.getSynonyms(request.getCategoryId(), request.getItemId());
+    return this.messageRepositoryService.getPhrases(request.getCategoryId(), request.getItemId());
   }
 
   @Resource

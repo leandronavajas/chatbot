@@ -20,4 +20,6 @@ public interface EntityFacade {
   List<MessageDTO> getItemsForCategory(String categoryId);
 
   List<MessageDTO> getSynonymsForItem(String categoryId, String itemId);
+
+  List<MessageDTO> getPhrasesForItem(String categoryId, String itemId);
 }

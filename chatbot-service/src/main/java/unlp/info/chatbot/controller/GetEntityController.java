@@ -42,6 +42,14 @@ public class GetEntityController {
     return this.entityFacade.getSynonymsForItem(categoryId, itemId);
   }
 
+  @RequestTracking
+  @GetMapping("/category/{categoryId}/item/{itemId}/phrases")
+  public List<MessageDTO> getPhrasesForItem(@PathVariable String categoryId, @PathVariable String itemId) {
+    LOGGER.info("Get phrases for item. Category_id: {} - Item_id: {}", categoryId, itemId);
+
+    return this.entityFacade.getPhrasesForItem(categoryId, itemId);
+  }
+
 
   @Resource
   public void setEntityFacade(EntityFacade entityFacade) {
