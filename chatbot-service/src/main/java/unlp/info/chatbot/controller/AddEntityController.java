@@ -9,16 +9,14 @@ import unlp.info.chatbot.dto.MessageDTO;
 import unlp.info.chatbot.facade.EntityFacade;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @RestController
 @RequestMapping()
-public class ApiEntityController {
+public class AddEntityController {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ApiEntityController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AddEntityController.class);
 
   private EntityFacade entityFacade;
-
 
   @RequestTracking
   @PostMapping("/category")
@@ -51,32 +49,6 @@ public class ApiEntityController {
 
     return this.entityFacade.addPhrase(categoryId, itemId, body);
   }
-
-
-  @RequestTracking
-  @GetMapping()
-  public List<MessageDTO> getAll(@RequestParam String filter) {
-    LOGGER.info("Get all entities. Filter: {}", filter);
-
-    return this.entityFacade.getAll(filter);
-  }
-
-  @RequestTracking
-  @GetMapping("/category/{categoryId}")
-  public List<MessageDTO> getItemsForCategory(@PathVariable String categoryId) {
-    LOGGER.info("Get items for category. Category_id: {}", categoryId);
-
-    return this.entityFacade.getItemsForCategory(categoryId);
-  }
-
-  @RequestTracking
-  @GetMapping("/category/{categoryId}/item/{itemId}")
-  public List<MessageDTO> getSynonymsForItem(@PathVariable String categoryId, @PathVariable String itemId) {
-    LOGGER.info("Get synonyms for item. Category_id: {} - Item_id: {}", categoryId, itemId);
-
-    return this.entityFacade.getSynonymsForItem(categoryId, itemId);
-  }
-
 
   @Resource
   public void setEntityFacade(EntityFacade entityFacade) {
