@@ -32,7 +32,7 @@ public class AddCategoryWitClient extends AbstractAddEntityWitClient<AddCategory
     body.setId(request.getEntity());
     body.setDoc(request.getDescription());
 
-    String bodyJsonFormat = body.toString();
+    String bodyJsonFormat = body.format();
 
     try {
       httpRequest.setEntity(new StringEntity(bodyJsonFormat));

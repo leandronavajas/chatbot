@@ -30,7 +30,7 @@ public class AddItemWitClient extends AbstractAddEntityWitClient<AddItemWitReque
     AddItemWitBody body = new AddItemWitBody();
     body.setValue(request.getItemId());
 
-    String bodyJsonFormat = body.toString();
+    String bodyJsonFormat = body.format();
 
     try {
       httpRequest.setEntity(new StringEntity(bodyJsonFormat));

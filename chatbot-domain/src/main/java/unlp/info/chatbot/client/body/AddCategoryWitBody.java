@@ -1,11 +1,6 @@
 package unlp.info.chatbot.client.body;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
-import java.util.List;
-
-public class AddCategoryWitBody {
+public class AddCategoryWitBody extends AbstractWitBody {
 
   private String id;
   private String doc;
@@ -26,8 +21,4 @@ public class AddCategoryWitBody {
     this.doc = doc;
   }
 
-  @Override
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
-  }
 }

@@ -39,7 +39,7 @@ public class AddValueEntityWitClient extends AbstractWitClient<AddValueEntityOpe
     body.setMetadata(request.getBody().getMetadata());
     body.setExpressions(request.getBody().getExpressions());
 
-    String bodyExample = body.toString();
+    String bodyExample = body.format();
 
     try {
       httpRequest.setEntity(new StringEntity(bodyExample));

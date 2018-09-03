@@ -29,7 +29,7 @@ public class AddSynonymWitClient extends AbstractAddEntityWitClient<AddSynonymWi
     AddSynonymWitBody body = new AddSynonymWitBody();
     body.setExpression(request.getSynonymId());
 
-    String bodyJsonFormat = body.toString();
+    String bodyJsonFormat = body.format();
 
     try {
       httpRequest.setEntity(new StringEntity(bodyJsonFormat));

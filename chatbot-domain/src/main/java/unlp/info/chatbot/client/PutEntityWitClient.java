@@ -38,7 +38,7 @@ public class PutEntityWitClient extends AbstractWitClient<PutEntityWitRequest, H
     PutCategoryBody body = new PutCategoryBody();
     body.setLookups(request.getLookups());
 
-    String bodyJsonFormat = body.toString();
+    String bodyJsonFormat = body.format();
 
     try {
       httpRequest.setEntity(new StringEntity(bodyJsonFormat));

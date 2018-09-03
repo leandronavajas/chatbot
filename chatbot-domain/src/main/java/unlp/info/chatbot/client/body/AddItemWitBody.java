@@ -1,11 +1,8 @@
 package unlp.info.chatbot.client.body;
 
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-
 import java.util.List;
 
-public class AddItemWitBody {
+public class AddItemWitBody extends AbstractWitBody {
 
   private String value;
   private List<String> expressions;
@@ -35,8 +32,4 @@ public class AddItemWitBody {
     this.metadata = metadata;
   }
 
-  @Override
-  public String toString() {
-    return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
-  }
 }
