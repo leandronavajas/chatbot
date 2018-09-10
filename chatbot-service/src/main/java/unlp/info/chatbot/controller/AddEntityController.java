@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import unlp.info.chatbot.annotation.RequestTracking;
 import unlp.info.chatbot.controller.body.AddEntityBody;
 import unlp.info.chatbot.dto.MessageDTO;
-import unlp.info.chatbot.facade.EntityFacade;
+import unlp.info.chatbot.facade.AddEntityFacade;
 
 import javax.annotation.Resource;
 
@@ -16,14 +16,14 @@ public class AddEntityController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AddEntityController.class);
 
-  private EntityFacade entityFacade;
+  private AddEntityFacade addEntityFacade;
 
   @RequestTracking
   @PostMapping("/category")
   public MessageDTO addCategory(@RequestBody AddEntityBody body) {
     LOGGER.info("Add Category: {}", body);
 
-    return this.entityFacade.addCategory(body);
+    return this.addEntityFacade.addCategory(body);
   }
 
   @RequestTracking
@@ -31,7 +31,7 @@ public class AddEntityController {
   public MessageDTO addItem(@PathVariable String categoryId, @RequestBody AddEntityBody body) {
     LOGGER.info("Add Item for category: {} -> {}", categoryId, body);
 
-    return this.entityFacade.addItem(categoryId, body);
+    return this.addEntityFacade.addItem(categoryId, body);
   }
 
   @RequestTracking
@@ -39,7 +39,7 @@ public class AddEntityController {
   public MessageDTO addSynonym(@PathVariable String categoryId, @PathVariable String itemId, @RequestBody AddEntityBody body) {
     LOGGER.info("Add Synonym: {} for item: {} in category: {}", body, itemId, categoryId);
 
-    return this.entityFacade.addSynonym(categoryId, itemId, body);
+    return this.addEntityFacade.addSynonym(categoryId, itemId, body);
   }
 
   @RequestTracking
@@ -47,11 +47,11 @@ public class AddEntityController {
   public MessageDTO addPhrase(@PathVariable String categoryId, @PathVariable String itemId, @RequestBody AddEntityBody body) {
     LOGGER.info("Add phrase: {} -> for item: {} in category: {} ", body, itemId, categoryId);
 
-    return this.entityFacade.addPhrase(categoryId, itemId, body);
+    return this.addEntityFacade.addPhrase(categoryId, itemId, body);
   }
 
   @Resource
-  public void setEntityFacade(EntityFacade entityFacade) {
-    this.entityFacade = entityFacade;
+  public void setAddEntityFacade(AddEntityFacade addEntityFacade) {
+    this.addEntityFacade = addEntityFacade;
   }
 }

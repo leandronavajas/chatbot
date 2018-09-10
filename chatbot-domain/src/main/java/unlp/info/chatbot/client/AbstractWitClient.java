@@ -29,6 +29,8 @@ public abstract class AbstractWitClient<R, H extends HttpRequestBase, O extends 
     URI uri = URI.create(url);
     httpRequest.setURI(uri);
 
+    this.getLogger().info("Call Wit. Url:{}", url);
+
     httpRequest.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
 
     httpRequest.setHeader("Authorization", WIT_TOKEN);

@@ -3,9 +3,7 @@ package unlp.info.chatbot.facade;
 import unlp.info.chatbot.controller.body.AddEntityBody;
 import unlp.info.chatbot.dto.MessageDTO;
 
-import java.util.List;
-
-public interface EntityFacade {
+public interface AddEntityFacade {
 
   MessageDTO addCategory(AddEntityBody body);
 
@@ -15,11 +13,4 @@ public interface EntityFacade {
 
   MessageDTO addPhrase(String categoryId, String itemId, AddEntityBody body);
 
-  List<MessageDTO> getAll(String filter);
-
-  List<MessageDTO> getItemsForCategory(String categoryId);
-
-  List<MessageDTO> getSynonymsForItem(String categoryId, String itemId);
-
-  List<MessageDTO> getPhrasesForItem(String categoryId, String itemId);
 }

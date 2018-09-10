@@ -4,6 +4,8 @@ import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.Statement;
+import com.datastax.driver.core.querybuilder.Assignment;
+import com.datastax.driver.core.querybuilder.Delete;
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
@@ -47,6 +49,7 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
 
   @Override
   public List<EntityPersistent> getAll(String filter) {
+    LOGGER.info("Get all items with filter: {}", filter);
     Session session = this.cassandraSessionService.cassandraSession();
 
     Statement statement =QueryBuilder.select().all().from(KEYSPACE, TABLE).allowFiltering().where(QueryBuilder.eq("kind", filter));
@@ -64,6 +67,7 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
   }
 
   public List<EntityPersistent> getItems(String categoryId) {
+    LOGGER.info("Get items for category: {}", categoryId);
     Session session = this.cassandraSessionService.cassandraSession();
 
     Statement statement = QueryBuilder
@@ -84,10 +88,12 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
   }
 
   public List<EntityPersistent> getSynonyms(String categoryId, String itemId) {
+    LOGGER.info("Get synonyms for item: {} in category: {}", itemId, categoryId);
     return this.getExpressions(categoryId, itemId, "SYNONYM");
   }
 
   public List<EntityPersistent> getPhrases(String categoryId, String itemId) {
+    LOGGER.info("Get phrases for item: {} in category: {}", itemId, categoryId);
     return this.getExpressions(categoryId, itemId, "PHRASE");
   }
 
@@ -113,6 +119,7 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
 
   @Override
   public EntityPersistent getById(String id) {
+    LOGGER.info("Get by id: {}", id);
     Session session = this.cassandraSessionService.cassandraSession();
     Statement statement = QueryBuilder.select().all().from(KEYSPACE, TABLE).where(QueryBuilder.eq("id", id)).limit(1);
     ResultSet resultSet = session.execute(statement);
@@ -128,7 +135,11 @@ public class MessageRepositoryService implements RepositoryService<EntityPersist
 
   @Override
   public void remove(String id) {
+    LOGGER.info("Remove entity by id: {}", id);
+    Session session = this.cassandraSessionService.cassandraSession();
 
+    Statement statement = QueryBuilder.delete().from(KEYSPACE, TABLE).where(QueryBuilder.eq("id", id));
+    session.execute(statement);
   }
 
   // PRIVATE METHODS

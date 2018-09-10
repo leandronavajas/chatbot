@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import unlp.info.chatbot.annotation.RequestTracking;
 import unlp.info.chatbot.dto.MessageDTO;
-import unlp.info.chatbot.facade.EntityFacade;
+import unlp.info.chatbot.facade.GetEntityFacade;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,14 +16,14 @@ public class GetEntityController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GetEntityController.class);
 
-  private EntityFacade entityFacade;
+  private GetEntityFacade getEntityFacade;
 
   @RequestTracking
   @GetMapping()
   public List<MessageDTO> getAll(@RequestParam String filter) {
     LOGGER.info("Get all entities. Filter: {}", filter);
 
-    return this.entityFacade.getAll(filter);
+    return this.getEntityFacade.getAll(filter);
   }
 
   @RequestTracking
@@ -31,7 +31,7 @@ public class GetEntityController {
   public List<MessageDTO> getItemsForCategory(@PathVariable String categoryId) {
     LOGGER.info("Get items for category. Category_id: {}", categoryId);
 
-    return this.entityFacade.getItemsForCategory(categoryId);
+    return this.getEntityFacade.getItemsForCategory(categoryId);
   }
 
   @RequestTracking
@@ -39,7 +39,7 @@ public class GetEntityController {
   public List<MessageDTO> getSynonymsForItem(@PathVariable String categoryId, @PathVariable String itemId) {
     LOGGER.info("Get synonyms for item. Category_id: {} - Item_id: {}", categoryId, itemId);
 
-    return this.entityFacade.getSynonymsForItem(categoryId, itemId);
+    return this.getEntityFacade.getSynonymsForItem(categoryId, itemId);
   }
 
   @RequestTracking
@@ -47,12 +47,12 @@ public class GetEntityController {
   public List<MessageDTO> getPhrasesForItem(@PathVariable String categoryId, @PathVariable String itemId) {
     LOGGER.info("Get phrases for item. Category_id: {} - Item_id: {}", categoryId, itemId);
 
-    return this.entityFacade.getPhrasesForItem(categoryId, itemId);
+    return this.getEntityFacade.getPhrasesForItem(categoryId, itemId);
   }
 
 
   @Resource
-  public void setEntityFacade(EntityFacade entityFacade) {
-    this.entityFacade = entityFacade;
+  public void setGetEntityFacade(GetEntityFacade getEntityFacade) {
+    this.getEntityFacade = getEntityFacade;
   }
 }

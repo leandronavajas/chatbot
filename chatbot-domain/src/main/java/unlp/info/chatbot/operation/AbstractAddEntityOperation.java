@@ -23,7 +23,7 @@ public abstract class AbstractAddEntityOperation<R extends AddCategoryOperationR
     }
 
     AddEntityWitResponse witResponse = this.callWit(request);
-    this.getLogger().info("[ADD MESSAGE OPERATION] By the moment, only print wit response: {}", witResponse);
+    this.getLogger().info("[ADD MESSAGE OPERATION] Wit response: {}", witResponse);
 
     this.fillRequestWithWitResponse(request, witResponse);
 
