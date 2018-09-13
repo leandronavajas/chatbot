@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import unlp.info.chatbot.client.Client;
 import unlp.info.chatbot.client.request.AddPhraseWitRequest;
+import unlp.info.chatbot.client.request.GetEntityWitRequest;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.model.EntityPersistent;
 import unlp.info.chatbot.operation.request.AddPhraseOperationRequest;
@@ -34,6 +35,12 @@ public class AddPhraseOperation extends AbstractAddEntityOperation<AddPhraseOper
     witRequest.setItemId(request.getItemId());
 
     return this.addPhraseWitClient.call(witRequest);
+  }
+
+  @Override
+  protected void fillRequestWithWitResponse(AddPhraseOperationRequest request, AddEntityWitResponse witResponse) {
+    EntityPersistent entityPersistent = this.messageRepositoryService.getById(request.getItemId());
+    request.setWitId(entityPersistent.getWitId());
   }
 
   @Override

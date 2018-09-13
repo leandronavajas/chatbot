@@ -1,4 +1,4 @@
-package unlp.info.chatbot;
+package unlp.info.chatbot.client;
 
 import org.apache.http.client.methods.HttpPost;
 import unlp.info.chatbot.client.AbstractWitClient;

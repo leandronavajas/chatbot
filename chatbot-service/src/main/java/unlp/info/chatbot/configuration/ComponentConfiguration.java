@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
         "unlp.info.chatbot.dto.transformer",
         "unlp.info.chatbot.transformer",
         "unlp.info.chatbot.operation",
+        "unlp.info.chatbot.wrapper",
         "unlp.info.chatbot.db",
         "unlp.info.chatbot.service",
         "unlp.info.chatbot.exception",

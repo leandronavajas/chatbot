@@ -25,7 +25,7 @@ public class RemoveSynonymOperationRequest implements RemoveEntityRequest{
   }
 
   @Override
-  public String getDBId() {
+  public String getEntityId() {
     return synonymId;
   }
 }

@@ -1,13 +1,18 @@
 package unlp.info.chatbot.model;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
+import unlp.info.chatbot.service.constants.RepositoryConstants;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Table("message_v3")
+import static unlp.info.chatbot.service.constants.RepositoryConstants.TABLE;
+
+@Table(TABLE)
 public class EntityPersistent implements PersistentObject, Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -15,7 +20,6 @@ public class EntityPersistent implements PersistentObject, Serializable {
   @PrimaryKey
   private String id;
   private String description;
-  private List<String> quickReply;
   private List<String> links;
   private String kind;
   private String parentId;
@@ -35,14 +39,6 @@ public class EntityPersistent implements PersistentObject, Serializable {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public List<String> getQuickReply() {
-    return quickReply;
-  }
-
-  public void setQuickReply(List<String> quickReply) {
-    this.quickReply = quickReply;
   }
 
   public List<String> getLinks() {
@@ -75,5 +71,10 @@ public class EntityPersistent implements PersistentObject, Serializable {
 
   public void setWitId(String witId) {
     this.witId = witId;
+  }
+
+  @Override
+  public String toString() {
+    return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
   }
 }

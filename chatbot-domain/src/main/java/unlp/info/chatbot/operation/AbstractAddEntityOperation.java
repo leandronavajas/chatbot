@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 
 public abstract class AbstractAddEntityOperation<R extends AddCategoryOperationRequest, P extends EntityPersistent> implements Operation<R, P>{
 
-  private RepositoryService<EntityPersistent> messageRepositoryService;
+  RepositoryService<EntityPersistent> messageRepositoryService;
 
   @Override
   public P execute(R request) {
@@ -35,7 +35,7 @@ public abstract class AbstractAddEntityOperation<R extends AddCategoryOperationR
 
   }
 
-  private void fillRequestWithWitResponse(R request, AddEntityWitResponse witResponse) {
+  protected void fillRequestWithWitResponse(R request, AddEntityWitResponse witResponse) {
     request.setWitId(witResponse.getId());
   }
 

@@ -19,7 +19,7 @@ public class RemoveItemOperationRequest implements RemoveEntityRequest {
   }
 
   @Override
-  public String getDBId() {
+  public String getEntityId() {
     return itemId;
   }
 }

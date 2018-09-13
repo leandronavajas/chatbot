@@ -25,7 +25,7 @@ public class RemovePhraseOperationRequest implements RemoveEntityRequest{
   }
 
   @Override
-  public String getDBId() {
+  public String getEntityId() {
     return phrase;
   }
 }

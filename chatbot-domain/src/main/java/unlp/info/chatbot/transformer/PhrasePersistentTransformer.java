@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 import unlp.info.chatbot.model.EntityPersistent;
 import unlp.info.chatbot.operation.request.AddPhraseOperationRequest;
 
+import static unlp.info.chatbot.model.EntityKind.PHRASE;
+
 @Component
 public class PhrasePersistentTransformer implements PersistentTransformer<AddPhraseOperationRequest, EntityPersistent> {
 
@@ -14,7 +16,7 @@ public class PhrasePersistentTransformer implements PersistentTransformer<AddPhr
     entityPersistent.setId(in.getDescription());
     entityPersistent.setParentId(in.getItemId());
     entityPersistent.setDescription(in.getDescription());
-    entityPersistent.setKind("PHRASE");
+    entityPersistent.setKind(PHRASE);
     entityPersistent.setWitId(in.getWitId());
 
     return entityPersistent;

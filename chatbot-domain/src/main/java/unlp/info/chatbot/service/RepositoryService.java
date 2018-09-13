@@ -10,7 +10,9 @@ public interface RepositoryService<P extends PersistentObject> {
 
   void save(P item);
 
-  List<P> getAll(String filter);
+  List<P> getAll(String filterField, String filterValue);
+
+  List<EntityPersistent> getAllSafe(String filterField, String filterValue);
 
   List<EntityPersistent> getItems(String categoryId);
 
@@ -20,7 +22,9 @@ public interface RepositoryService<P extends PersistentObject> {
 
   P getById(String id);
 
-  void remove(String id);
+  void remove(String witId);
+
+  void remove(EntityPersistent entitiesToRemove);
 
 
 }

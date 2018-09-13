@@ -5,7 +5,6 @@ import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import unlp.info.chatbot.AbstractAddEntityWitClient;
 import unlp.info.chatbot.client.body.AddItemWitBody;
 import unlp.info.chatbot.client.request.AddItemWitRequest;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;

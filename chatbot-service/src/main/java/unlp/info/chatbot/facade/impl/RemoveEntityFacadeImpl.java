@@ -5,11 +5,9 @@ import unlp.info.chatbot.dto.StatusResponse;
 import unlp.info.chatbot.dto.transformer.DTOTransformer;
 import unlp.info.chatbot.dto.transformer.request.StatusResponseDTOTransformerRequest;
 import unlp.info.chatbot.facade.RemoveEntityFacade;
+import unlp.info.chatbot.model.EntityPersistent;
 import unlp.info.chatbot.operation.Operation;
-import unlp.info.chatbot.operation.request.RemoveCategoryOperationRequest;
-import unlp.info.chatbot.operation.request.RemoveItemOperationRequest;
-import unlp.info.chatbot.operation.request.RemovePhraseOperationRequest;
-import unlp.info.chatbot.operation.request.RemoveSynonymOperationRequest;
+import unlp.info.chatbot.operation.request.*;
 
 import javax.annotation.Resource;
 
@@ -27,7 +25,6 @@ public class RemoveEntityFacadeImpl implements RemoveEntityFacade {
 
   @Override
   public StatusResponse removeCategory(String categoryId) {
-
     RemoveCategoryOperationRequest request = new RemoveCategoryOperationRequest(categoryId);
     String status = this.removeCategoryOperation.execute(request);
 
@@ -63,6 +60,7 @@ public class RemoveEntityFacadeImpl implements RemoveEntityFacade {
   }
 
 
+  // INJECTIONS
 
   @Resource
   public void setRemoveCategoryOperation(Operation<RemoveCategoryOperationRequest, String> removeCategoryOperation) {
@@ -88,4 +86,5 @@ public class RemoveEntityFacadeImpl implements RemoveEntityFacade {
   public void setStatusResponseDTOTransformer(DTOTransformer<StatusResponseDTOTransformerRequest, StatusResponse> statusResponseDTOTransformer) {
     this.statusResponseDTOTransformer = statusResponseDTOTransformer;
   }
+
 }

@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static unlp.info.chatbot.model.EntityKind.CATEGORY;
+import static unlp.info.chatbot.model.EntityKind.ITEM;
+
 @Component
 public class GetMessageOperation implements Operation<GetMessageRequest, EntityPersistent> {
 
@@ -45,7 +48,7 @@ public class GetMessageOperation implements Operation<GetMessageRequest, EntityP
     Set<Map.Entry<String, List<WitMessageMetricResponse>>> metrics = entities.entrySet();
 
     if (CollectionUtils.isEmpty(metrics)) {
-      throw new ItemNotFoundException("[GET MESSAGE OPERATION] Sorry! but i don't understand");
+      throw new ItemNotFoundException("Sorry! but I don't understand");
     }
 
     Map<String, EntityPersistent> selector = Maps.newHashMap();
@@ -76,20 +79,20 @@ public class GetMessageOperation implements Operation<GetMessageRequest, EntityP
 
   private EntityPersistent getEntityPersistentByPriority(Set<Map.Entry<String, List<WitMessageMetricResponse>>> metrics, Map<String, EntityPersistent> selector) {
     if (CollectionUtils.isEmpty(selector)) {
-      throw new ItemNotFoundException("[GET MESSAGE OPERATION] Wit data is not present in DB. Metric: " + metrics.iterator().next().getValue());
+      throw new ItemNotFoundException("Wit data is not present in DB. Metric: " + metrics.iterator().next().getValue());
     }
 
     // Select by priority
 
-    if (selector.containsKey("ITEM")) {
-      return selector.get("ITEM");
+    if (selector.containsKey(ITEM)) {
+      return selector.get(ITEM);
     }
 
-    if (selector.containsKey("CATEGORY")) {
-      return selector.get("CATEGORY");
+    if (selector.containsKey(CATEGORY)) {
+      return selector.get(CATEGORY);
     }
 
-    throw new ItemNotFoundException("[GET MESSAGE OPERATION] The message must have be metrics defined. Metric: " + metrics.iterator().next().getValue());
+    throw new ItemNotFoundException("The message must have be metrics defined. Metric: " + metrics.iterator().next().getValue());
   }
   
 

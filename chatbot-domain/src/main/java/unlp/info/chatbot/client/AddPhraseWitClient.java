@@ -6,7 +6,6 @@ import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import unlp.info.chatbot.AbstractAddEntityWitClient;
 import unlp.info.chatbot.client.body.AddEntityPhraseWitBody;
 import unlp.info.chatbot.client.body.AddPhraseWitBody;
 import unlp.info.chatbot.client.request.AddPhraseWitRequest;
@@ -14,7 +13,6 @@ import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.exception.ParseWitBodyException;
 
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component

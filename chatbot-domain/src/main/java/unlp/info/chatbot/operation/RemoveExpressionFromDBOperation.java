@@ -2,25 +2,23 @@ package unlp.info.chatbot.operation;
 
 import org.springframework.stereotype.Component;
 import unlp.info.chatbot.model.EntityPersistent;
-import unlp.info.chatbot.operation.request.GetAllEntitiesRequest;
+import unlp.info.chatbot.operation.request.RemoveEntitiesFromDBOperationRequest;
 import unlp.info.chatbot.service.RepositoryService;
-import unlp.info.chatbot.service.constants.RepositoryConstants;
 
 import javax.annotation.Resource;
-import java.util.List;
-
-import static unlp.info.chatbot.service.constants.RepositoryConstants.KIND;
 
 @Component
-public class GetAllEntitiesOperation implements Operation<GetAllEntitiesRequest, List<EntityPersistent>> {
+public class RemoveExpressionFromDBOperation  implements Operation<RemoveEntitiesFromDBOperationRequest, String>  {
 
   private RepositoryService<EntityPersistent> messageRepositoryService;
 
   @Override
-  public List<EntityPersistent> execute(GetAllEntitiesRequest request) {
+  public String execute(RemoveEntitiesFromDBOperationRequest request) {
+    EntityPersistent entityPersistent = request.getEntityPersistent();
 
-    return this.messageRepositoryService.getAll(KIND, request.getFilter());
+    this.messageRepositoryService.remove(entityPersistent);
 
+    return "OK";
   }
 
   @Resource
