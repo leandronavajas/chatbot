@@ -21,7 +21,7 @@ public class MessageDTO implements PersistentObject, Serializable {
   @JsonProperty("wit_id")
   private String witId;
   @JsonProperty("quick_reply")
-  private QuickReplyDTO quickReply;
+  private List<QuickReplyDTO> quickReply;
   private List<String> links;
 
   @Override
@@ -57,11 +57,11 @@ public class MessageDTO implements PersistentObject, Serializable {
     this.siblings = siblings;
   }
 
-  public QuickReplyDTO getQuickReply() {
+  public List<QuickReplyDTO> getQuickReply() {
     return quickReply;
   }
 
-  public void setQuickReply(QuickReplyDTO quickReply) {
+  public void setQuickReply(List<QuickReplyDTO> quickReply) {
     this.quickReply = quickReply;
   }
 

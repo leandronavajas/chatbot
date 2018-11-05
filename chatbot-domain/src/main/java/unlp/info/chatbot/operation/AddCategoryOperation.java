@@ -6,10 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import unlp.info.chatbot.client.Client;
 import unlp.info.chatbot.client.request.AddCategoryWitRequest;
+import unlp.info.chatbot.client.request.AddItemWitRequest;
+import unlp.info.chatbot.client.request.AddPhraseWitRequest;
 import unlp.info.chatbot.client.request.PutEntityWitRequest;
 import unlp.info.chatbot.client.response.AddEntityWitResponse;
 import unlp.info.chatbot.model.EntityPersistent;
 import unlp.info.chatbot.operation.request.AddCategoryOperationRequest;
+import unlp.info.chatbot.operation.request.AddPhraseOperationRequest;
 import unlp.info.chatbot.transformer.PersistentTransformer;
 
 import javax.annotation.Resource;
@@ -22,6 +25,8 @@ public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategory
   private PersistentTransformer<AddCategoryOperationRequest, EntityPersistent> categoryPersistentTransformer;
   private Client<AddCategoryWitRequest,AddEntityWitResponse> addCategoryWitClient;
   private Client<PutEntityWitRequest, AddEntityWitResponse> putEntityWitClient;
+  private Client<AddItemWitRequest, AddEntityWitResponse> addItemWitClient;
+  private Client<AddPhraseWitRequest, AddEntityWitResponse> addPhraseWitClient;
 
   @Override
   protected Logger getLogger() {
@@ -32,6 +37,7 @@ public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategory
 
   @Override
   protected AddEntityWitResponse callWit(AddCategoryOperationRequest request) {
+
     AddCategoryWitRequest addCategoryWitRequest = new AddCategoryWitRequest();
     addCategoryWitRequest.setEntity(request.getEntity());
     addCategoryWitRequest.setDescription(request.getDescription());
@@ -42,6 +48,20 @@ public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategory
     putEntityWitRequest.setEntityName(addEntityWitResponse.getName());
     putEntityWitRequest.setLookups(Lists.newArrayList("\"free-text\"", "\"keywords\""));
     this.putEntityWitClient.call(putEntityWitRequest);
+
+    AddItemWitRequest addItemWitRequest = new AddItemWitRequest();
+    addItemWitRequest.setEntity("categories");
+    addItemWitRequest.setItemId(request.getEntity());
+    addItemWitRequest.setDescription(request.getDescription());
+
+    this.addItemWitClient.call(addItemWitRequest);
+
+    AddPhraseWitRequest addPhraseWitRequest = new AddPhraseWitRequest();
+    addPhraseWitRequest.setEntity("categories");
+    addPhraseWitRequest.setItemId(request.getEntity());
+    addPhraseWitRequest.setDescription(request.getEntity());
+
+    this.addPhraseWitClient.call(addPhraseWitRequest);
 
     return addEntityWitResponse;
 
@@ -67,5 +87,15 @@ public class AddCategoryOperation extends AbstractAddEntityOperation<AddCategory
   @Resource
   public void setPutEntityWitClient(Client<PutEntityWitRequest, AddEntityWitResponse> putEntityWitClient) {
     this.putEntityWitClient = putEntityWitClient;
+  }
+
+  @Resource
+  public void setAddItemWitClient(Client<AddItemWitRequest, AddEntityWitResponse> addItemWitClient) {
+    this.addItemWitClient = addItemWitClient;
+  }
+
+  @Resource
+  public void setAddPhraseWitClient(Client<AddPhraseWitRequest, AddEntityWitResponse> addPhraseWitClient) {
+    this.addPhraseWitClient = addPhraseWitClient;
   }
 }

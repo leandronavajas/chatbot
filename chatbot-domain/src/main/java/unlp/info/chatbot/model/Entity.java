@@ -2,29 +2,18 @@ package unlp.info.chatbot.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
-import unlp.info.chatbot.service.constants.RepositoryConstants;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
-import static unlp.info.chatbot.service.constants.RepositoryConstants.TABLE;
+public class Entity {
 
-@Table(TABLE)
-public class EntityPersistent implements PersistentObject, Serializable {
-
-  private static final long serialVersionUID = 1L;
-
-  @PrimaryKey
   private String id;
   private String description;
   private List<String> links;
   private String kind;
   private String parentId;
   private String witId;
+  private List<String> children;
 
   public String getId() {
     return id;
@@ -72,6 +61,14 @@ public class EntityPersistent implements PersistentObject, Serializable {
 
   public void setWitId(String witId) {
     this.witId = witId;
+  }
+
+  public List<String> getChildren() {
+    return children;
+  }
+
+  public void setChildren(List<String> children) {
+    this.children = children;
   }
 
   @Override

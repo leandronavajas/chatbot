@@ -46,3 +46,4 @@ public class QuickReplyDTO implements Serializable {
     return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
   }
 }
+

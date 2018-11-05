@@ -11,10 +11,13 @@ import unlp.info.chatbot.client.response.WitMessageResponse;
 import unlp.info.chatbot.exception.ItemNotFoundException;
 import unlp.info.chatbot.exception.LowConfidenceException;
 import unlp.info.chatbot.exception.NullConfidenceException;
+import unlp.info.chatbot.model.Entity;
 import unlp.info.chatbot.model.EntityPersistent;
+import unlp.info.chatbot.operation.request.GetItemsForCategoryRequest;
 import unlp.info.chatbot.operation.request.GetMessageRequest;
 import unlp.info.chatbot.service.RepositoryService;
 import unlp.info.chatbot.service.WitService;
+import unlp.info.chatbot.transformer.ModelTransformer;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -26,17 +29,19 @@ import static unlp.info.chatbot.model.EntityKind.CATEGORY;
 import static unlp.info.chatbot.model.EntityKind.ITEM;
 
 @Component
-public class GetMessageOperation implements Operation<GetMessageRequest, EntityPersistent> {
+public class GetMessageOperation implements Operation<GetMessageRequest, Entity> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(GetMessageOperation.class);
-  private static BigDecimal CONFIDENCE_THRESHOLD = BigDecimal.valueOf(0.8);
+  private static BigDecimal CONFIDENCE_THRESHOLD = BigDecimal.valueOf(0.7);
 
   private RepositoryService<EntityPersistent> messageRepositoryService;
 
   private WitService witService;
 
+  private ModelTransformer<EntityPersistent, Entity> entityTransformer;
+
   @Override
-  public EntityPersistent execute(GetMessageRequest request) {
+  public Entity execute(GetMessageRequest request) {
 
 
     GetMessageWitRequest getMessageWitRequest = new GetMessageWitRequest();
@@ -57,7 +62,10 @@ public class GetMessageOperation implements Operation<GetMessageRequest, EntityP
       selector.put(entityPersistent.getKind(), entityPersistent);
     }
 
-    return this.getEntityPersistentByPriority(metrics, selector);
+    EntityPersistent entityPersistent = this.getEntityPersistentByPriority(metrics, selector);
+
+    return this.entityTransformer.transform(entityPersistent);
+
   }
 
   private EntityPersistent getEntityPersistent(WitMessageMetricResponse metric) {
@@ -104,5 +112,10 @@ public class GetMessageOperation implements Operation<GetMessageRequest, EntityP
   @Resource
   public void setWitService(WitService witService) {
     this.witService = witService;
+  }
+
+  @Resource
+  public void setEntityTransformer(ModelTransformer<EntityPersistent, Entity> entityTransformer) {
+    this.entityTransformer = entityTransformer;
   }
 }
