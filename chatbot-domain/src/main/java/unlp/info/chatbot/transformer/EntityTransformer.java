@@ -2,6 +2,7 @@ package unlp.info.chatbot.transformer;
 
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Component;
+import unlp.info.chatbot.exception.ItemNotFoundException;
 import unlp.info.chatbot.model.Entity;
 import unlp.info.chatbot.model.EntityKind;
 import unlp.info.chatbot.model.EntityPersistent;
@@ -29,7 +30,12 @@ public class EntityTransformer implements ModelTransformer<EntityPersistent, Ent
 
     if (EntityKind.CATEGORY.equalsIgnoreCase(entityPersistent.getKind())) {
       GetItemsForCategoryRequest request = new GetItemsForCategoryRequest(entity.getId());
-      List<Entity> childrenPersistent = this.getItemsForCategoryOperation.execute(request);
+      List<Entity> childrenPersistent = Lists.newArrayList();
+      try {
+        childrenPersistent = this.getItemsForCategoryOperation.execute(request);
+      } catch (ItemNotFoundException e) {
+        return entity;
+      }
 
       List<String> children = Lists.newArrayList();
       for (Entity child : childrenPersistent) {
