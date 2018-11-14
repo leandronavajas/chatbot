@@ -21,6 +21,8 @@ public class AddPhraseWitClient extends AbstractAddEntityWitClient<AddPhraseWitR
   private static final Logger LOGGER = LoggerFactory.getLogger(AddPhraseWitClient.class);
   private static final String WIT_ADD_PHRASE_URL = "https://api.wit.ai/samples?v=" + WIT_VERSION;
 
+  private static final String CATEGORIES = "categories";
+
   @Override
   protected String getUrl(AddPhraseWitRequest request) {
     return WIT_ADD_PHRASE_URL;
@@ -32,7 +34,7 @@ public class AddPhraseWitClient extends AbstractAddEntityWitClient<AddPhraseWitR
     body.setText(request.getDescription());
 
     List<AddEntityPhraseWitBody> entities = Lists.newArrayList();
-    AddEntityPhraseWitBody addEntityPhraseBody = new AddEntityPhraseWitBody(request.getEntity(), request.getItemId());
+    AddEntityPhraseWitBody addEntityPhraseBody = new AddEntityPhraseWitBody(CATEGORIES, request.getItemId());
     entities.add(addEntityPhraseBody);
     
     body.setEntities(entities);
