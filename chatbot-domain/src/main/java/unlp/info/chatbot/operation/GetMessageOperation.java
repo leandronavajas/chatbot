@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import unlp.info.chatbot.client.request.GetMessageWitRequest;
 import unlp.info.chatbot.client.response.WitMessageMetricResponse;
 import unlp.info.chatbot.client.response.WitMessageResponse;
@@ -78,11 +79,16 @@ public class GetMessageOperation implements Operation<GetMessageRequest, Entity>
     }
 
     if (CONFIDENCE_THRESHOLD.compareTo(confidence) > 0) {
-      LOGGER.error("[GET MESSAGE OPERATION] Confidence must be upper than 80%. Confidence: {}", confidence);
-      throw new LowConfidenceException("Confidence must be upper than 80%");
+      BigDecimal thresholdToShow = this.getThresholdToShow();
+      LOGGER.error("[GET MESSAGE OPERATION] Confidence must be upper than {}%. Confidence: {}", thresholdToShow, confidence);
+      throw new LowConfidenceException("Confidence must be upper than " + thresholdToShow + "%");
     }
 
     return this.messageRepositoryService.getById(metric.getValue());
+  }
+
+  private BigDecimal getThresholdToShow() {
+    return CONFIDENCE_THRESHOLD.multiply(BigDecimal.valueOf(100)).setScale(0);
   }
 
   private EntityPersistent getEntityPersistentByPriority(Set<Map.Entry<String, List<WitMessageMetricResponse>>> metrics, Map<String, EntityPersistent> selector) {
