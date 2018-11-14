@@ -34,7 +34,7 @@ public class AddPhraseWitClient extends AbstractAddEntityWitClient<AddPhraseWitR
     body.setText(request.getDescription());
 
     List<AddEntityPhraseWitBody> entities = Lists.newArrayList();
-    AddEntityPhraseWitBody addEntityPhraseBody = new AddEntityPhraseWitBody(CATEGORIES, request.getItemId());
+    AddEntityPhraseWitBody addEntityPhraseBody = new AddEntityPhraseWitBody(CATEGORIES, request.getEntity());
     entities.add(addEntityPhraseBody);
     
     body.setEntities(entities);
